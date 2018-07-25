@@ -2,15 +2,9 @@ import java.util.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListSet;
 
-public class PersonMap {
-    private final TreeMap<String, Person> people;
-    /* Constructs a TreeMap of people that is sorted according to the comparator specified
+public class PersonMapHash {
+    private HashMap<String, Person> people = new HashMap<>();
 
-     */
-    // We can use this method to instantiate a new HashMap every time we need to resort.
-    public PersonMap(Comparator<? super String> comp) {
-        people = new TreeMap<>(comp);
-    }
     public void put(String key, Person value){
         people.put(key, value);
     }
@@ -41,8 +35,5 @@ public class PersonMap {
     }
     public int size(){
         return people.size();
-    }
-    public void addAll(PersonMap map){
-        people.putAll(map.people);
     }
 }

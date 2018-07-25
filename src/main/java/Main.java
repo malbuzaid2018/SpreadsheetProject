@@ -30,6 +30,7 @@ public class Main {
         Sheets sheet;
         Map<String, ArrayList<String>> theMap = new HashMap<>();
         Map<String, ArrayList<String>> timeKeys = new HashMap<>();
+        PersonMapHash peopleHash = new PersonMapHash(); // This is necessary to avoid infinite recursion utilizing the Comparator on the String key. It's worth the sacrirfice in space. HashMap is constant lookup time versus O(log n)
         try {
             sheet = SheetsServiceUtil.getSheetsService();
             String SPREADSHEET_ID = "1BAvWAR78ghD7UAqESnxe8V5L6xtwazJ89hkhz3waQyM";
@@ -61,30 +62,38 @@ public class Main {
                     continue;
                 }
                 for (int j = 0; j < numberOfRowsToProcess; j++) {
-                    Boolean timeChanged = !(times.get(j).equals(time)) && !(times.get(j) == "" );
-                    if (i==0){
+                    Boolean timeChanged = !(times.get(j).equals(time)) && !(times.get(j) == "");
+                    if (i == 0) {
                         continue;
-
                     }
                     String name = "";
                     String timeDate = "";
-                    if(timeChanged){
+                    Person newPerson = new Person(name);
+                    if (timeChanged) {
                         time = times.get(j);
                     }
-                    boolean meetsCriteriaToAddName = (j > 0 && !(response.getValueRanges().get(0).getValues().get(i).get(j)==""));
+                    boolean meetsCriteriaToAddName = (j > 0 && !(response.getValueRanges().get(0).getValues().get(i).get(j) == ""));
                     if (j > 0 && !(time.isEmpty())) { //we can redo this (j>1) to account for the multiple rows that the date takes up in the real sheet.
                         timeDate = time + " " + dates.get(i);
                     }
                     if (meetsCriteriaToAddName) {
                         name = (String) response.getValueRanges().get(0).getValues().get(i).get(j); //simplify this so we don't have to do it every time.
+                        newPerson.setName(name);
                     }
                     if (theMap.containsKey(name) && timeDate != "") {
                         theMap.get(name).add(timeDate);
-                    } else {
-                        if (name != "" && timeDate != ""){
+                    }
+                    if ( (peopleHash.containsKey(name)) && (timeDate != "") && (name != null)){
+                        peopleHash.get(name).incrementIntiallyAvailable(); //increment the number of slots    the person initially has available.
+                        peopleHash.get(name).addTimeFree(timeDate);
+                    }
+                    else {
+                        if (name != "" && timeDate != "" && name != null){
                             ArrayList<String> toAdd = new ArrayList();
+                            newPerson.addTimeFree(timeDate);
                             toAdd.add(timeDate);
                             theMap.put(name, toAdd);
+                            peopleHash.put(name, newPerson);
                         }
                     }
                     if (timeKeys.containsKey(timeDate) && timeDate != "") {
@@ -112,6 +121,20 @@ public class Main {
         for(Map.Entry<String,ArrayList<String>> entry : timeKeys.entrySet()){
             System.out.println("Time: " + entry.getKey());
             System.out.println("Who's available: " + entry.getValue());
-        }   
+        }
+        System.out.println("New");
+        ComparePerson comp = new ComparePerson();
+        comp.setHash(peopleHash);
+        PersonMap sortedPersons = new PersonMap(comp);
+        for(Map.Entry<String, Person> entry : peopleHash.entrySet()){
+            System.out.println("Name: " + entry.getKey());
+            System.out.println("Schedule: " + entry.getValue().getTimes());
+            sortedPersons.put(entry.getKey(), entry.getValue());
+        }
+        System.out.println("Test here");
+        for(Map.Entry<String, Person> entry : sortedPersons.entrySet()){
+            System.out.println("Name " + entry.getKey());
+            System.out.println("Schedule free at : " + entry.getValue().getTimes());
+        }
         }
     }
