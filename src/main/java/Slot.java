@@ -34,7 +34,13 @@ public class Slot {
     }
 
     public void addPersonToPeopleAvailable(String person){
-
+        ListIterator<String> itr = peopleAvailable.listIterator();
+        while (itr.hasNext()){
+            if (person.compareTo(itr.next()) > 0){
+                itr.previous();
+                itr.add(person);
+            }
+        }
     }
     public void addPersontoPeopleFilling(String person){
 

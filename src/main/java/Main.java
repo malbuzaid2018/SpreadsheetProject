@@ -112,6 +112,6 @@ public class Main {
         for(Map.Entry<String,ArrayList<String>> entry : timeKeys.entrySet()){
             System.out.println("Time: " + entry.getKey());
             System.out.println("Who's available: " + entry.getValue());
+        }   
         }
     }
-}
