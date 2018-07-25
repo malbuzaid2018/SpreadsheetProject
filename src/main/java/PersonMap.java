@@ -45,4 +45,14 @@ public class PersonMap {
     public void addAll(PersonMap map){
         people.putAll(map.people);
     }
+    /*
+    This method will be really useful for the algorithm. We simply subset off of who's available as a key)
+     */
+    public NavigableSet<String> returnSubsetOfKeys(Set<String> keys, ComparePerson comp) {
+        NavigableSet<String> navigableSet = people.navigableKeySet();
+        NavigableSet<String> iterationSet = new TreeSet<>(comp);
+        iterationSet.addAll(navigableSet);
+        iterationSet.retainAll(keys);
+        return iterationSet;
+    }
 }

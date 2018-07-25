@@ -131,10 +131,24 @@ public class Main {
             System.out.println("Schedule: " + entry.getValue().getTimes());
             sortedPersons.put(entry.getKey(), entry.getValue());
         }
+        /* What this does is create a sorted HashMap. That way when we implement through the HashMap the first item will be the person that we should first add to the schedule. (We can modify criteria as we go)
+         The big change is that we now have person objects that are sorted to work with. We can do things in constant time to the objects themselves by just getting the value.
+         */
         System.out.println("Test here");
-        for(Map.Entry<String, Person> entry : sortedPersons.entrySet()){
+        Set<String> inputSub = new HashSet<>();
+        inputSub.add("Jordan");
+        inputSub.add("John");
+        inputSub.add("Mike");
+        NavigableSet<String> subSet = sortedPersons.returnSubsetOfKeys(inputSub, comp);
+        for(Map.Entry<String, Person> entry : sortedPersons.entrySet()  ){
             System.out.println("Name " + entry.getKey());
             System.out.println("Schedule free at : " + entry.getValue().getTimes());
+        }
+        /*
+        Testing to see if we can return a sorted navigable set. So we can use this when looking at times.
+         */
+        for (String str: subSet){
+            System.out.println(str);
         }
         }
     }
