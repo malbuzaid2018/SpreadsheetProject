@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 import java.util.Arrays;
-//TODO For a person's schedule remove duplicate times faster!!
+//TODO For a person's schedule remove duplicate times faster. Think about a skip list. Figure out a way to find times that aren't filled at all.
 public class Main {
     public static void main(String[] args) {
         Sheets sheet;
@@ -41,7 +41,6 @@ public class Main {
                                                           ///0             //col    ///row
             System.out.println(response.getValueRanges().get(0).getValues().get(0).get(1));
             int numberOfCols = response.getValueRanges().get(0).getValues().size();
-            System.out.println(response.getValueRanges().get(0).getValues());
             ArrayList<String> times = new ArrayList<>();
             ArrayList<String> dates = new ArrayList<>();
             for (int i=0; i<response.getValueRanges().get(0).getValues().get(0).size(); i++){
@@ -59,10 +58,11 @@ public class Main {
             for (int i = 0; i<numberOfCols; i++) {
                 Boolean columnEmpty = response.getValueRanges().get(0).getValues().get(i).isEmpty();
                 int numberOfRowsToProcess = response.getValueRanges().get(0).getValues().get(i).size();
+                System.out.println(numberOfRowsToProcess);
                 if (columnEmpty){
                     continue;
                 }
-                for (int j = 0; j < numberOfRowsToProcess; j++) {
+                for (int j = 0; j < numberOfRows; j++) {
                     Boolean timeChanged = !(times.get(j).equals(time)) && !(times.get(j) == "");
                     if (i == 0) {
                         continue;
@@ -76,12 +76,17 @@ public class Main {
                     if (timeChanged) {
                         time = times.get(j);
                     }
-                    boolean meetsCriteriaToAddName = (j > 0 && !(response.getValueRanges().get(0).getValues().get(i).get(j) == ""));
+                    boolean meetsCriteriaToAddName = (j > 0);
                     if (j > 0 && !(time.isEmpty())) { //we can redo this (j>1) to account for the multiple rows that the date takes up in the real sheet.
                         timeDate = time + " " + dates.get(i);
                     }
                     if (meetsCriteriaToAddName) {
-                        name = (String) response.getValueRanges().get(0).getValues().get(i).get(j); //simplify this so we don't have to do it every time.
+                        if (j >= response.getValueRanges().get(0).getValues().get(i).size()){
+                            name = "";
+                        }
+                        else {
+                            name = (String) response.getValueRanges().get(0).getValues().get(i).get(j);
+                        }
                         newPerson.setName(name);
                     }
                     schedule.tryToAddPersonToAvailable(newPerson, timeDate, peopleHash);

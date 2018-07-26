@@ -106,6 +106,11 @@ public class TheTimeMap implements Schedule {
             }
             return true;
         } else {
+            if (person.getName().equals("")) {
+                if (!this.containsTime(timeDate)) {
+                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(30));
+                }
+            }
             if ((person.getName() != "") && (person.getName() != null)) {
                 person.addTimeFree(timeDate);
                 person.incrementIntiallyAvailable();
