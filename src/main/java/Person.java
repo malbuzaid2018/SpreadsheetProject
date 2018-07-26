@@ -3,9 +3,9 @@ public class Person {
     private int capacity;
     private int numberInitiallyAvailable = 1;
     private int numberScheduled;
-    private int timeSlotsLeft;
     private String name;
     private final ArrayList<String> timesFree = new ArrayList();
+    private final ArrayList<String> timesWorking = new ArrayList();
 
 
     public Person(){
@@ -17,6 +17,12 @@ public class Person {
     public Person(String name){
         this.name = name;
         capacity = 30;
+        numberScheduled = 0;
+        numberInitiallyAvailable = 1;
+    }
+    public Person(String name, int capacity){
+        this.name = name;
+        capacity = capacity;
         numberScheduled = 0;
         numberInitiallyAvailable = 1;
     }
@@ -40,7 +46,7 @@ public class Person {
         return numberScheduled;
     }
     public int timeSlotsLeft(){
-        return timeSlotsLeft;
+        return capacity - numberScheduled;
     }
     public int getNumberInitiallyAvailable(){
         return numberInitiallyAvailable;
@@ -52,15 +58,15 @@ public class Person {
         numberInitiallyAvailable++;
     }
     public void incrementNumberScheduled(){
-
         numberScheduled++;
-    }
-    public void decrementtimeSlotsLeft(){
-
-        timeSlotsLeft--;
     }
     public void setName(String newName){
 
         this.name = newName;
+    }
+    /* We can change this as we need to for more advanced features that is why it is a duplicate for now
+      */
+    public boolean isEligibleToAddToATime(){
+        return this.atCapacity();
     }
 }

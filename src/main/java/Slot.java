@@ -1,63 +1,85 @@
 import java.util.*;
 
 public class Slot {
-    private final ArrayList<String> peopleAvailable = new ArrayList<>();
-    private final ArrayList<String> peopleWorking = new ArrayList<>();
+    private final ArrayList<Person> peopleAvailable = new ArrayList<>();
+    private final ArrayList<Person> peopleWorking = new ArrayList<>();
     int numberOfPeopleWorking = 0;
     final int minimumRequired;
+    private int max; // We can use this in a later implementation with more features
     private String date;
 
-    public Slot(int min){
+    public Slot(int min) {
         this.minimumRequired = min;
     }
 
-    public ArrayList<String> getPeopleAvailable() {
-        ArrayList<String> people = new ArrayList<>(peopleAvailable.size());
+    public ArrayList<Person> getPeopleAvailable() {
+        ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
         for (int i = 0; i < peopleAvailable.size(); i++) {
             people.add(peopleAvailable.get(i));
         }
         return people;
     }
-
-    public ArrayList<String> getPeopleWorking(){
+    public ArrayList<String> getPeopleAvailableNamems(){
         ArrayList<String> people = new ArrayList<>(peopleAvailable.size());
-        for (String str : peopleAvailable){
-            people.add(str);
+        for (int i = 0; i<peopleAvailable.size(); i++){
+            people.add(peopleAvailable.get(i).getName());
         }
         return people;
     }
-    public boolean isFilledToMin(){
+
+    public ArrayList<Person> getPeopleWorkingNames() {
+        ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
+        for (Person person : peopleAvailable) {
+            people.add(person);
+        }
+        return people;
+    }
+
+    public boolean isFilledToMin() {
         return numberOfPeopleWorking >= minimumRequired;
     }
-    public int getNumberOfPeople(){
+
+    public int getNumberOfPeople() {
         return numberOfPeopleWorking;
     }
 
-    public void addPersonToPeopleAvailable(String person){
-        ListIterator<String> itr = peopleAvailable.listIterator();
-        while (itr.hasNext()){
-            if (person.compareTo(itr.next()) > 0){
-                itr.previous();
-                itr.add(person);
-            }
-        }
+    //TODO//  implement this with the proper compareTo or Comparator
+    public void addPersonToPeopleAvailable(Person person) {
+        peopleAvailable.add(person);
     }
-    public void addPersontoPeopleFilling(String person){
+
+    public void addPersontoPeopleFilling(String person) {
 
     }
-    public void removePersonFromPeopleAvailable(String person){
+
+    public void removePersonFromPeopleAvailable(String person) {
 
     }
-    public void removePersonFromPeopleFilling(String person){
+
+    public void removePersonFromPeopleFilling(String person) {
 
     }
-    public void sortPeopleAvailable(){
-        Collections.sort(peopleAvailable);
+
+    public Person removeAndGetFirstPersonAvailable() {
+        return peopleAvailable.remove(0);
     }
-    public boolean isEmpty(){
+
+    public void sortPeopleAvailable() {
+    }
+
+    public boolean isEmpty() {
         return numberOfPeopleWorking == 0;
     }
 
-
-
+    // Warning is looking for the same object!
+    public boolean containsInAvailable(Person person) {
+        boolean found = false;
+        for (Person personItr : peopleAvailable) {
+            if (personItr.getName().equalsIgnoreCase(person.getName())){
+                found = true;
+            }
+        }
+        return found;
+    }
 }
+
