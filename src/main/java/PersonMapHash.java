@@ -16,8 +16,8 @@ public class PersonMapHash {
         people.clear();
     }
 
-    public boolean containsKey(String person) {
-        return people.containsKey(person);
+    public boolean containsKey(String personID) {
+        return people.containsKey(personID);
     }
 
     public boolean containsValue(Person person) {

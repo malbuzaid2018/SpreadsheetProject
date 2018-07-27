@@ -1,11 +1,15 @@
 import java.util.*;
-public class Person {
+/* E specifies the type of objects held in the ArrayList. We will probably use Strings to represent times. But with this we could easily change it to be timeSlots
+or any new implementation
+ */
+public class Person{
     private int capacity;
     private int numberInitiallyAvailable = 1;
     private int numberScheduled;
     private String name;
-    private final ArrayList<String> timesFree = new ArrayList();
-    private final ArrayList<String> timesWorking = new ArrayList();
+    private ConflictManager managerOfConflicts = new ConflictManager();
+    private final ArrayList<String> timesFree = new ArrayList();  // This is where we could use a skip list. We would be adding and removing AND possibly searching this.
+    private final ArrayList<String> timesWorking = new ArrayList(); // Skip list?
 
 
     public Person(){
@@ -34,8 +38,8 @@ public class Person {
         return arrayToReturn;
     }
     public void addTimeFree(String time){
-        timesFree.add(time);
-    }
+            timesFree.add(time);
+        }
     public void removeTimeFree(String time){
         timesFree.remove(time); //must reimplement this method so that it is more efficient.
     }
@@ -68,5 +72,8 @@ public class Person {
       */
     public boolean isEligibleToAddToATime(){
         return this.atCapacity();
+    }
+    public void addConflictMarkerToConflictManager(Character character, int i){
+        managerOfConflicts.addConflictMarkerToInstance(character, i);
     }
 }

@@ -50,6 +50,9 @@ public class TheTimeMap implements Schedule {
             return false;
         }
     }
+    public void  clear(){
+        timeSlotMap.clear();
+    }
 
     public void putNewTimeSlotOnSchedule(String time, Slot timeSlotObj) {
         if (timeSlotMap.containsKey(time)) {
@@ -64,32 +67,31 @@ public class TheTimeMap implements Schedule {
     }
 
     public void clearSchedule() {
+
         timeSlotMap.clear();
     }
-
-    public Set<String> setOfTimes() {
+    public Set<String> setOfTimeStrings() {
         return timeSlotMap.keySet();
     }
-
     public Collection<Slot> collectionOfSlots() {
+
         return timeSlotMap.values();
     }
-
     /* This method guarantees the order of the entries in the entrySet will be the same as they order they
     were inserted when we iterate over them.
      */
     public Set<Map.Entry<String, Slot>> entrySet() {
         return timeSlotMap.entrySet();
     }
-
-    public boolean tryToAddPersonToAvailable(Person person, String timeDate, PersonMapHash mapToReadAndUpdate) {
+    // TODO  eliminate DRY and make this method more robust
+    public boolean tryToAddPersonToAvailableWithMap(Person person, String timeDate, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
         }
         if (mapToReadAndUpdate.containsKey(person.getName())) {
             person = mapToReadAndUpdate.get(person.getName());
             person.incrementIntiallyAvailable();
-            person.addTimeFree(timeDate);
+            person.addTimeFree((String) timeDate);
             if (this.containsTime(timeDate)) {
                 if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
                     return false;

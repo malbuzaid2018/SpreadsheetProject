@@ -3,6 +3,7 @@ import java.util.*;
 public class Slot {
     private final ArrayList<Person> peopleAvailable = new ArrayList<>();
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
+    private final ConflictManager managerOfConflict = new ConflictManager();
     int numberOfPeopleWorking = 0;
     final int minimumRequired;
     private int max; // We can use this in a later implementation with more features
@@ -70,16 +71,18 @@ public class Slot {
     public boolean isEmpty() {
         return numberOfPeopleWorking == 0;
     }
-
-    // Warning is looking for the same object!
+    // We are checking for the same exact object. So the == method is good enough. We could use getName but we
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {
-            if (personItr.getName().equalsIgnoreCase(person.getName())){
+            if (personItr == person){
                 found = true;
             }
         }
         return found;
+    }
+    public void addConflictMarkerToConflictManager(Character character, int i){
+        managerOfConflict.addConflictMarkerToInstance(character, i);
     }
 }
 
