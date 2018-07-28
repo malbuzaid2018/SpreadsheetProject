@@ -15,6 +15,17 @@ public class Main {
         for (Map.Entry<String, Person> entry : peopleHash.entrySet()){
             System.out.println("Person " + entry.getKey());
             System.out.println("Time's person is available " + entry.getValue().getTimes());
+
         }
-        }
+
+        Person john = new Person("John");
+        Slot timeSlot = new Slot();
+        timeSlot.addConflictMarker('D',1);
+        Person mike = new Person("Mike");
+        mike.addConflictMarker('D',1);
+        timeSlot.addPersonToPeopleAvailable(mike);
+        timeSlot.addPersonToPeopleAvailable(john);
+        timeSlot.removeAllConflictMarkerRelatedToSlotFromAll('D', 1);
+        System.out.println(timeSlot.checkForConflicts(john));
+    }
 }
