@@ -4,18 +4,25 @@ public class Slot extends Conflictable {
     private final ArrayList<Person> peopleAvailable = new ArrayList<>();
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
     int numberOfPeopleWorking = 0;
-    final int minimumRequired;
-    private int max; // We can use this in a later implementation with more features
+    int minimumRequired;
+    private int max; // We can use this with a priorityQueue so that we can continue to fill the slot to capacity.
     private String date;
+    private String time;
 
     public Slot() {
-        minimumRequired = 30;
+        minimumRequired = 5;
     }
 
     public Slot(int min) {
         this.minimumRequired = min;
     }
-
+    public Slot(String date){
+        this.minimumRequired = 5;
+        this.date = date;
+    }
+    public String getDate(){
+       return (date);
+    }
     public ArrayList<Person> getPeopleAvailable() {
         ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
         for (int i = 0; i < peopleAvailable.size(); i++) {
@@ -122,5 +129,9 @@ public class Slot extends Conflictable {
             person.removeConflictMarker(character, i);
         }
         return super.removeConflictMarkerFromInstance(conflictMarkerToRemove);
+    }
+
+    public void sortPeopleWorking(){
+        Collections.sort(peopleWorking, new ComparePerson());
     }
 }

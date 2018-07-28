@@ -74,7 +74,6 @@ public class TheTimeMap implements Schedule {
         return timeSlotMap.keySet();
     }
     public Collection<Slot> collectionOfSlots() {
-
         return timeSlotMap.values();
     }
     /* This method guarantees the order of the entries in the entrySet will be the same as they order they
@@ -84,6 +83,23 @@ public class TheTimeMap implements Schedule {
         return timeSlotMap.entrySet();
     }
     // TODO  eliminate DRY and make this method more robust
+    public ArrayList<Slot> slotPriorityList(Comparator<Slot> slotComparator){
+        ArrayList<Slot> theSlotArray = new ArrayList<>();
+        for (Slot slot : timeSlotMap.values()){
+            theSlotArray.add(slot);
+        }
+        Collections.sort(theSlotArray, slotComparator);
+        return theSlotArray;
+    }
+    // At first glance this method seems inefficient but for our algorithm it could really help us out. Certain time slots should be filled first. For example at 12:00 at WTC only two people might list themselves as available and the
+    // minimum required slots might be 2. We would want to fill all timeSlots to the minimum if possible. BUT then we would also want to fill above the minimum. So we would want our algorithm to
+    // continue to run. Using a priorityQueue when you push an item it goes to the right spot on the list(assuming a good comparator method) So once we serve an item we can actually push it back onto the queue. This is going to be useful once we fill all slots to minimum. We would fill
+    // the slot with one person and then move onto the next item in the Queue until we reach a point where we can't(max at all items or no more people available).
+    public PriorityQueue<Slot> slotPriorityQueue(Comparator<Slot> slotComparator){
+        PriorityQueue<Slot> slotPriorityQueue = new PriorityQueue<>();
+        slotPriorityQueue.addAll(timeSlotMap.values());
+        return slotPriorityQueue;
+    }
     public boolean tryToAddPersonToAvailableWithMap(Person person, String timeDate, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
