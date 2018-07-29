@@ -3,25 +3,47 @@ import java.util.*;
 public class Slot extends Conflictable {
     private final ArrayList<Person> peopleAvailable = new ArrayList<>();
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
-    int numberOfPeopleWorking = 0;
-    int minimumRequired;
+    private int numberOfPeopleAvailable = 0;
+    private int numberOfPeopleWorking = 0;
+    private int minimumRequired;
     private int max; // We can use this with a priorityQueue so that we can continue to fill the slot to capacity.
+    private int leftToMax = max - numberOfPeopleWorking;
     private String date;
     private String time;
 
-    public Slot() {
+    public Slot()
+    {
+        max = 6;
         minimumRequired = 5;
+        date = "";
+        time = "";
     }
-
-    public Slot(int min) {
+    public Slot(int min, int max, String date, String time){
         this.minimumRequired = min;
-    }
-    public Slot(String date){
-        this.minimumRequired = 5;
+        this.max = max;
         this.date = date;
+        this.time = time;
+    }
+    public Slot(String date, String time){
+        this(5, 6, date, time);
+    }
+    public boolean peopleLeftToFillSlot(){
+        return peopleAvailable.size() != 0;
+    }
+    public int getLeftToMax(){
+        return leftToMax;
+    }
+    public int getMinimumRequired(){
+        return minimumRequired;
+    }
+    public int getNumberOfPeopleWorking(){
+        return numberOfPeopleWorking;
+    }
+    public int getMax(){
+        return max;
     }
     public String getDate(){
-       return (date);
+       return date;
     }
     public ArrayList<Person> getPeopleAvailable() {
         ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
@@ -58,31 +80,33 @@ public class Slot extends Conflictable {
     //TODO//  implement this with the proper compareTo or Comparator
     public void addPersonToPeopleAvailable(Person person) {
         peopleAvailable.add(person);
+        numberOfPeopleAvailable++;
     }
 
-    public void addPersontoPeopleFilling(Person person) {
+    public void addPersontoPeopleWorking(Person person) {
         if (this.checkForConflicts(person) == true) {
             System.out.println("Warning there is a conflict! Please address this before adding!");
         } else {
             peopleWorking.add(person);
+            numberOfPeopleWorking++;
         }
     }
-
-    public void removePersonFromPeopleAvailable(String person) {
-
+    public void removePersonFromPeopleAvailable(Person person) {
+        peopleAvailable.remove(person);
+        numberOfPeopleAvailable--;
     }
-
-    public void removePersonFromPeopleFilling(String person) {
-
+    public void removePersonFromPeopleFilling(Person person) {
+        peopleWorking.remove(person);
+        numberOfPeopleWorking--;
     }
-
     public Person removeAndGetFirstPersonAvailable() {
+        numberOfPeopleAvailable--;
         return peopleAvailable.remove(0);
-    }
 
-    public void sortPeopleAvailable() {
     }
-
+    public void sortPeopleAvailable(Comparator<Person> comparator) {
+        Collections.sort(peopleAvailable, comparator);
+    }
     public boolean isEmpty() {
         return numberOfPeopleWorking == 0;
     }
@@ -129,9 +153,5 @@ public class Slot extends Conflictable {
             person.removeConflictMarker(character, i);
         }
         return super.removeConflictMarkerFromInstance(conflictMarkerToRemove);
-    }
-
-    public void sortPeopleWorking(){
-        Collections.sort(peopleWorking, new ComparePerson());
     }
 }

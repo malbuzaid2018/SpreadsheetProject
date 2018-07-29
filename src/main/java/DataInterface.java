@@ -14,6 +14,8 @@ public class DataInterface {
     Sheets sheet;
     private int numberOfInputEntries; //WARNING SPREADSHEET must meet formatting to get an accurate number.
     private int numberOfDates; //WARNING: SPREADSHEET must meet formatting to get an accurate number.
+    private int defaultMin = 5;
+    private int defaultMax = 6;
     public void getDataFromSpreadsheet(PersonMapHash peopleMap, TheTimeMap timeMap) {
         peopleMap.clear();
         timeMap.clear();
@@ -74,11 +76,23 @@ public class DataInterface {
                         }
                         newPerson.setName(name);
                     }
-                    timeMap.tryToAddPersonToAvailableWithMap(newPerson, timeDate, peopleMap);
+                    timeMap.tryToAddPersonToAvailableWithMap(newPerson, defaultMin, defaultMax, timeDate, time, dates.get(i), peopleMap);
                 }
             }
         }   catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    public int getDefaultMin(){
+        return defaultMin;
+    }
+    public int getDefaultMax(){
+        return defaultMax;
+    }
+    public void setDefaultMin(int i){
+        defaultMin = i;
+    }
+    public void setDefaultMax(int i){
+        defaultMax = i;
     }
 }

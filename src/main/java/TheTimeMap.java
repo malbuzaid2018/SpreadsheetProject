@@ -61,13 +61,12 @@ public class TheTimeMap implements Schedule {
         timeSlotMap.put(time, timeSlotObj);
         numberOfTimeSlots++;
     }
-
     public Slot removeTime(String key) {
+        numberOfTimeSlots--;
         return timeSlotMap.remove(key);
+
     }
-
     public void clearSchedule() {
-
         timeSlotMap.clear();
     }
     public Set<String> setOfTimeStrings() {
@@ -82,15 +81,7 @@ public class TheTimeMap implements Schedule {
     public Set<Map.Entry<String, Slot>> entrySet() {
         return timeSlotMap.entrySet();
     }
-    // TODO  eliminate DRY and make this method more robust
-    public ArrayList<Slot> slotPriorityList(Comparator<Slot> slotComparator){
-        ArrayList<Slot> theSlotArray = new ArrayList<>();
-        for (Slot slot : timeSlotMap.values()){
-            theSlotArray.add(slot);
-        }
-        Collections.sort(theSlotArray, slotComparator);
-        return theSlotArray;
-    }
+
     // At first glance this method seems inefficient but for our algorithm it could really help us out. Certain time slots should be filled first. For example at 12:00 at WTC only two people might list themselves as available and the
     // minimum required slots might be 2. We would want to fill all timeSlots to the minimum if possible. BUT then we would also want to fill above the minimum. So we would want our algorithm to
     // continue to run. Using a priorityQueue when you push an item it goes to the right spot on the list(assuming a good comparator method) So once we serve an item we can actually push it back onto the queue. This is going to be useful once we fill all slots to minimum. We would fill
@@ -100,7 +91,7 @@ public class TheTimeMap implements Schedule {
         slotPriorityQueue.addAll(timeSlotMap.values());
         return slotPriorityQueue;
     }
-    public boolean tryToAddPersonToAvailableWithMap(Person person, String timeDate, PersonMapHash mapToReadAndUpdate) {
+    public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
         }
@@ -114,7 +105,7 @@ public class TheTimeMap implements Schedule {
                 }
                 this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
             } else {
-                this.putNewTimeSlotOnSchedule(timeDate, new Slot(30));
+                this.putNewTimeSlotOnSchedule(timeDate, new Slot(time, date));
                 if (this.getTimeSlot(timeDate).containsInAvailable(person)){
                     return false;
                 }
@@ -126,7 +117,8 @@ public class TheTimeMap implements Schedule {
         } else {
             if (person.getName().equals("")) {
                 if (!this.containsTime(timeDate)) {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(30));
+                    this.putNewTimeSlotOnSchedule(timeDate, new Slot( time, date));
+                    numberOfTimeSlots++;
                 }
             }
             if ((person.getName() != "") && (person.getName() != null)) {
@@ -139,7 +131,7 @@ public class TheTimeMap implements Schedule {
                     }
                     this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
                 } else {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(30));
+                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(time, date));
                     this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
                 }
             }

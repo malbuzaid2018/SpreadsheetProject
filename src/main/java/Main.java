@@ -17,7 +17,6 @@ public class Main {
             System.out.println("Time's person is available " + entry.getValue().getTimes());
 
         }
-
         Person john = new Person("John");
         Slot timeSlot = new Slot();
         timeSlot.addConflictMarker('D',1);
