@@ -42,32 +42,28 @@ public class TheTimeMap implements Schedule {
         return timeSlotMap.remove(key);
     }
 
-    public boolean updateTimeSlot(String key, Slot value) {
+    public boolean modifyTimeSlot(String key, int min, int max) {
         if (timeSlotMap.containsKey(key)) {
-            timeSlotMap.put(key, value);
+            Slot theSlot = timeSlotMap.get(key);
+            theSlot.setMinimumRequired(min);
+            theSlot.setMax(max);
             return true;
         } else {
             return false;
         }
     }
-    public void  clear(){
+    public void clear(){
         timeSlotMap.clear();
+        numberOfTimeSlots = 0;
     }
 
-    public void putNewTimeSlotOnSchedule(String time, Slot timeSlotObj) {
+    public boolean putNewTimeSlotOnSchedule(String time, Slot timeSlotObj) {
         if (timeSlotMap.containsKey(time)) {
-            System.out.println("Please use the updateTimeSlot method if you wish to update a time slot with a new time slot object. Otherwise please check your parameters as the schedule contains this time");
+            return false;
         }
         timeSlotMap.put(time, timeSlotObj);
         numberOfTimeSlots++;
-    }
-    public Slot removeTime(String key) {
-        numberOfTimeSlots--;
-        return timeSlotMap.remove(key);
-
-    }
-    public void clearSchedule() {
-        timeSlotMap.clear();
+        return true;
     }
     public Set<String> setOfTimeStrings() {
         return timeSlotMap.keySet();
@@ -87,7 +83,7 @@ public class TheTimeMap implements Schedule {
     // continue to run. Using a priorityQueue when you push an item it goes to the right spot on the list(assuming a good comparator method) So once we serve an item we can actually push it back onto the queue. This is going to be useful once we fill all slots to minimum. We would fill
     // the slot with one person and then move onto the next item in the Queue until we reach a point where we can't(max at all items or no more people available).
     public PriorityQueue<Slot> slotPriorityQueue(Comparator<Slot> slotComparator){
-        PriorityQueue<Slot> slotPriorityQueue = new PriorityQueue<>();
+        PriorityQueue<Slot> slotPriorityQueue = new PriorityQueue<>(numberOfTimeSlots, slotComparator);
         slotPriorityQueue.addAll(timeSlotMap.values());
         return slotPriorityQueue;
     }
@@ -105,7 +101,7 @@ public class TheTimeMap implements Schedule {
                 }
                 this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
             } else {
-                this.putNewTimeSlotOnSchedule(timeDate, new Slot(time, date));
+                this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
                 if (this.getTimeSlot(timeDate).containsInAvailable(person)){
                     return false;
                 }
@@ -117,7 +113,7 @@ public class TheTimeMap implements Schedule {
         } else {
             if (person.getName().equals("")) {
                 if (!this.containsTime(timeDate)) {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot( time, date));
+                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
                     numberOfTimeSlots++;
                 }
             }
@@ -131,7 +127,7 @@ public class TheTimeMap implements Schedule {
                     }
                     this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
                 } else {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(time, date));
+                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
                     this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
                 }
             }

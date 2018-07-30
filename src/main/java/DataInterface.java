@@ -35,12 +35,25 @@ public class DataInterface {
             for (int i = 0; i < response.getValueRanges().get(0).getValues().get(0).size(); i++) {
                 times.add((String) response.getValueRanges().get(0).getValues().get(0).get(i));  //fills a times array up with values
             }
+            ArrayList<String> daysToRemove = new ArrayList<>(); // TODO  ?figure out how to implement this with a rule?
+            daysToRemove.add("Sun");
             for (int i = 0; i < numberOfCols; i++) {
-                if (response.getValueRanges().get(0).getValues().get(i).size() == 0) {
+                if (response.getValueRanges().get(0).getValues().get(i).size() == 0){
                     dates.add(null);
                     continue;
                 }
-                dates.add((String) response.getValueRanges().get(0).getValues().get(i).get(0));
+                String date = (String) response.getValueRanges().get(0).getValues().get(i).get(0);
+                boolean removeDate = false;
+                for (int itr = 0; itr< daysToRemove.size(); itr++){
+                    if(date.contains(daysToRemove.get(itr))){
+                        removeDate = true;
+                    }
+                }
+                if (removeDate){
+                    dates.add(null);
+                    continue;
+                }
+                dates.add(date);
             }
             int numberOfRows = times.size();
             String time = "";

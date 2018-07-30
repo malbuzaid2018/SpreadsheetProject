@@ -26,5 +26,11 @@ public class Main {
         timeSlot.addPersonToPeopleAvailable(john);
         timeSlot.removeAllConflictMarkerRelatedToSlotFromAll('D', 1);
         System.out.println(timeSlot.checkForConflicts(john));
+
+        Rule newRule = new Rule(2, 3);
+        for (Map.Entry<String, Slot> entry : schedule.entrySet()){
+            newRule.applyTimeDayRuleToSlot(entry.getValue(), "Thu", "9:30");
+            System.out.println(entry.getValue().getDate() + " " + entry.getValue().getTime() + " : Min = " + entry.getValue().getMinimumRequired());
+        }
     }
 }

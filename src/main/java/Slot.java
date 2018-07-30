@@ -154,4 +154,13 @@ public class Slot extends Conflictable {
         }
         return super.removeConflictMarkerFromInstance(conflictMarkerToRemove);
     }
+    public void setMax(int i){
+        max = i;
+    }
+    public void setMinimumRequired(int i){
+        minimumRequired = i;
+    }
+    public String getTime(){
+        return time;
+    }
 }
