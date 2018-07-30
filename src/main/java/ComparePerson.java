@@ -8,7 +8,7 @@ public class ComparePerson implements Comparator<Person> {
         if (personOne.getName().equalsIgnoreCase(personTwo.getName())){
             return 0;
         }   
-        int firstTest= ((personOne.getNumberScheduled()) / (personOne.getNumberInitiallyAvailable() + 1) ) - ((personTwo.getNumberScheduled()) / (personTwo.getNumberInitiallyAvailable() + 1));
+        int firstTest= ((personOne.getNumberScheduled()) * (personOne.getNumberInitiallyAvailable() + 1) ) - ((personTwo.getNumberScheduled()) * (personTwo.getNumberInitiallyAvailable() + 1));
         if ((firstTest != 0)) {
             System.out.println("here");
             return (int) Math.floor(firstTest);
