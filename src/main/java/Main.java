@@ -8,6 +8,9 @@ public class Main {
         TheTimeMap schedule = new TheTimeMap();
         DataInterface theDataInterface = new DataInterface();
         theDataInterface.getDataFromSpreadsheet(peopleHash, schedule);
+        ArrayList<String> timeToRemove = new ArrayList();
+        timeToRemove.add("1:00 WTC Mon");
+        schedule.deleteDayTimes(timeToRemove);
         for (Map.Entry<String, Slot> entry : schedule.entrySet()){
             System.out.println("Time " + entry.getKey());
             System.out.println("People who are available to fill the time slot: " + entry.getValue().getPeopleAvailableNamems());
@@ -32,5 +35,6 @@ public class Main {
             newRule.applyTimeDayRuleToSlot(entry.getValue(), "Thu", "9:30");
             System.out.println(entry.getValue().getDate() + " " + entry.getValue().getTime() + " : Min = " + entry.getValue().getMinimumRequired());
         }
+
     }
 }

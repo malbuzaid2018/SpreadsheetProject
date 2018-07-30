@@ -87,6 +87,17 @@ public class TheTimeMap implements Schedule {
         slotPriorityQueue.addAll(timeSlotMap.values());
         return slotPriorityQueue;
     }
+
+    public void deleteDayTimes(ArrayList<String> dayTimes){
+        Iterator<String> itr = timeSlotMap.keySet().iterator();
+        while (itr.hasNext()){
+            for (String str : dayTimes){
+                if (itr.next().contains(str)) {
+                    itr.remove();
+                }
+            }
+        }
+    }
     public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
