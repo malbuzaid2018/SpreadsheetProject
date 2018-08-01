@@ -21,6 +21,7 @@ public interface Schedule {
      * @param timeDate
      */
     void getMinAndMax(String timeDate);
+    
 
     /*
     @param A string representing the time slot to return.
