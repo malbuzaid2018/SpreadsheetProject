@@ -1,3 +1,5 @@
+import com.google.api.services.sheets.v4.Sheets;
+
 import java.util.*;
 
 public class TheTimeMap implements Schedule {
@@ -26,6 +28,88 @@ public class TheTimeMap implements Schedule {
     //* This is the one that we would use to see if there is a time on the schedule*/
     public boolean containsTime(String key) {
         return timeSlotMap.containsKey(key);
+    }
+
+    /**
+     * display all of the time slots followed by all of the people working at the time and who is available at the time.
+     */
+    @Override
+    public void displaySchedule() {
+
+        for (Map.Entry<String, Slot> entry : entrySet()){
+            System.out.println("Time " + entry.getKey());
+            System.out.println("People who are available to fill the time slot: " + entry.getValue().getPeopleAvailableNamems());
+        }
+    }
+
+    /**
+     * display the people's names who are available for a given time and date
+     *
+     * @param timeDate
+     */
+    @Override
+    public void displayPeopleAvailable(String timeDate) {
+        for (Map.Entry<String, Slot> entry : entrySet()){
+            if (entry.getKey().equals(timeDate)){
+                System.out.println("Time " + entry.getKey());
+                System.out.println("People who are available to fill the time slot: " + entry.getValue().getPeopleAvailableNamems());
+            }
+        }
+    }
+
+    /**
+     * display the people's names who are working for a time and date.
+     *
+     * @param timeDate
+     */
+    @Override
+    public void displayPeopleWorking(String timeDate) {
+        for (Map.Entry<String, Slot> entry : entrySet()){
+
+            if (entry.getKey().equals(timeDate)){
+                System.out.println("Time " + entry.getKey());
+                System.out.println("People who are available to fill the time slot: " + entry.getValue().getNumberOfPeopleWorking());
+            }
+        }
+    }
+
+    /**
+     * displays a times min and max number of people who need to/can work a time.
+     * @param timeDate
+     */
+    @Override
+    public void getMinAndMax(String timeDate) {
+
+        int minNumberPeople = Integer.MAX_VALUE;
+        int maxNumberPeople = Integer.MIN_VALUE;
+
+        //find min, max
+        for (Map.Entry<String, Slot> entry : entrySet()){
+            if (entry.getKey().equals(timeDate)) {
+                if (entry.getValue().getNumberOfPeople() > maxNumberPeople) {
+                    maxNumberPeople = entry.getValue().getNumberOfPeople();
+                }
+                if (entry.getValue().getNumberOfPeople() < minNumberPeople) {
+                    minNumberPeople = entry.getValue().getNumberOfPeople();
+                }
+            }
+        }
+
+        //print min
+        System.out.println("Times min number of people who need to/can work a time");
+        for (Map.Entry<String, Slot> entry : entrySet()){
+            if (entry.getKey().equals(timeDate) && entry.getValue().getNumberOfPeople() == minNumberPeople){
+                System.out.println(entry.getKey());
+            }
+        }
+
+        //print max
+        System.out.println("Times max number of people who need to/can work a time");
+        for (Map.Entry<String, Slot> entry : entrySet()){
+            if (entry.getKey().equals(timeDate) && entry.getValue().getNumberOfPeople() == maxNumberPeople){
+                System.out.println(entry.getKey());
+            }
+        }
     }
 
     public Slot getTimeSlot(String key) {
@@ -145,4 +229,6 @@ public class TheTimeMap implements Schedule {
             return true;
         }
     }
+
+
 }
