@@ -37,11 +37,11 @@ public class Slot extends Conflictable {
         return minimumRequired;
     }
     public int getNumberOfPeopleWorking(){
-        return numberOfPeopleWorking;
-    }
-    public int getMax(){
-        return max;
-    }
+            return numberOfPeopleWorking;
+        }
+        public int getMax(){
+            return max;
+        }
     public String getDate(){
        return date;
     }
@@ -61,10 +61,10 @@ public class Slot extends Conflictable {
         return people;
     }
 
-    public ArrayList<Person> getPeopleWorkingNames() {
-        ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
+    public ArrayList<String> getPeopleWorkingNames() {
+        ArrayList<String> people = new ArrayList<>(peopleAvailable.size());
         for (Person person : peopleAvailable) {
-            people.add(person);
+            people.add(person.getName());
         }
         return people;
     }
@@ -99,10 +99,10 @@ public class Slot extends Conflictable {
         peopleWorking.remove(person);
         numberOfPeopleWorking--;
     }
+    // Luke's method to get the head of the sorted list.
     public Person removeAndGetFirstPersonAvailable() {
         numberOfPeopleAvailable--;
         return peopleAvailable.remove(0);
-
     }
     public void sortPeopleAvailable(Comparator<Person> comparator) {
         Collections.sort(peopleAvailable, comparator);
@@ -111,7 +111,7 @@ public class Slot extends Conflictable {
         return numberOfPeopleWorking == 0;
     }
 
-    // We are checking for the same exact object. So the == method is good enough. We could use getName but we
+    // We are checking for the same exact object. So the == method is good enough.
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {
@@ -135,7 +135,7 @@ public class Slot extends Conflictable {
         System.out.println("Attempting to add a ConflictMarker object " + conflictMarkerToAdd.hashCode() + " to slot " + this.hashCode());
         added = super.addConflictMarkerToInstance(conflictMarkerToAdd);
         if (added = true) {
-            System.out.println("Successfully added marker to slot" + this.hashCode());
+            System.out.println("Successfully added marker to slot " + this.hashCode());
         } else {
             System.out.println("Marker already present in slot " + hashCode());
         }
@@ -155,9 +155,15 @@ public class Slot extends Conflictable {
         return super.removeConflictMarkerFromInstance(conflictMarkerToRemove);
     }
     public void setMax(int i){
+        if (i < 0){
+            throw new IllegalArgumentException("Please enter a maximum value equal to or above zero");
+        }
         max = i;
     }
     public void setMinimumRequired(int i){
+        if (i < 0 ){
+            throw new IllegalArgumentException("Please enter a minimum value equal to or above zero");
+        }
         minimumRequired = i;
     }
     public String getTime(){

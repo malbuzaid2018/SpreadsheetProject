@@ -5,7 +5,7 @@ public class TheTimeMap implements Schedule {
     private int numberOfTimeSlots;
 
     public TheTimeMap() {
-        timeSlotMap = new LinkedHashMap<>();
+        timeSlotMap = new LinkedHashMap<>(491);
         numberOfTimeSlots = 0;
     }
 

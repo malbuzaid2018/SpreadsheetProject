@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.Map;
 
 public class PersonMapHash {
-    private HashMap<String, Person> people = new HashMap<>();
+    private HashMap<String, Person> people = new HashMap<>(97);
 
     public void put(String key, Person value) {
         people.put(key, value);
