@@ -142,54 +142,32 @@ public class TheTimeMap implements Schedule {
             for (String str : dayTimes){
                 if (itr.next().contains(str)) {
                     itr.remove();
+                    numberOfTimeSlots--;
                 }
             }
         }
     }
-    // TODO Elimiante dry from this code.
+
     public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
         }
         if (mapToReadAndUpdate.containsKey(person.getName())) {
             person = mapToReadAndUpdate.get(person.getName());
-            if (this.containsTime(timeDate)) {
-                if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
-                    return false;
-                }
-                this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
-            } else {
-                this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
-                if (this.getTimeSlot(timeDate).containsInAvailable(person)){
-                    return false;
-                }
-                else {
-                    this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
-                }
-            }
-            return true;
-        } else {
-            if (person.getName().equals("")) {
-                if (!this.containsTime(timeDate)) {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
-                    numberOfTimeSlots++;
-                }
-            }
-            if ((person.getName() != "") && (person.getName() != null)) {
-                mapToReadAndUpdate.put(person.getName(), person);
-                if (this.containsTime(timeDate)) {
-                    if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
-                        return false;
-                    }
-                    this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
-                } else {
-                    this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
-                    this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
-                }
-            }
-            return true;
         }
+        Boolean success = eliminateDry(person, min, max, timeDate, time, date, mapToReadAndUpdate);
+        return success;
     }
-
-
+    private boolean eliminateDry(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash personMapHash){
+        Boolean nameEmpty = person.getName().equals("");
+        Boolean timeNotAlreadyOnSchedule = this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
+        if ((!nameEmpty) && (person.getName() != null)){
+            personMapHash.put(person.getName(), person);
+            if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
+                return false;
+            }
+            this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
+        }
+        return true;
+    }
 }

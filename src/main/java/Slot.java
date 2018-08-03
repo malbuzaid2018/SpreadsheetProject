@@ -116,7 +116,7 @@ public class Slot extends Conflictable {
     public boolean containsInWorking(Person person){
         boolean found = false;
         for (Person personItr : peopleWorking) {
-            if (personItr.getName().equalsIgnoreCase(person.getName())){
+            if (personItr.equals(person)){
                 found = true;
             }
         }
@@ -172,7 +172,7 @@ public class Slot extends Conflictable {
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {
-            if (personItr.getName().equalsIgnoreCase(person.getName())){
+            if (personItr.equals(person)){
                 found = true;
             }
         }
