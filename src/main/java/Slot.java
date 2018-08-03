@@ -42,8 +42,8 @@ public class Slot extends Conflictable {
         return minimumRequired;
     }
     public int getNumberOfPeopleWorking(){
-            return numberOfPeopleWorking;
-        }
+        return numberOfPeopleWorking;
+    }
 
         public int getMax(){
             return max;
@@ -86,13 +86,15 @@ public class Slot extends Conflictable {
         return numberOfPeopleWorking;
     }
 
-    // Maybe implement a sort method to sort people.
+    // We could do this so that the list of people is sorted and we run a binary search to see if the person is already in the list. We could then insert the item alphabetically. However,
+    // we are using an ArrayList and adding the item would result in nearly the same time efficiency(since we would now be adding to the middle of the list rather than the end). Adding N items would make this ultimately a O(n^2) growth rate. Plus, there would be extra overhead in calling a method either way.
     public void addPersonToPeopleAvailable(Person person) {
-        if (containsInAvailable(person)){
+        if (containsInAvailable(person)) {
             System.out.println("Person is already in available!");
             return;
         }
         peopleAvailable.add(person);
+        person.addTimeFree(this.time + " " + this.date);
         person.incrementIntiallyAvailable();
         numberOfPeopleAvailable++;
     }
@@ -107,40 +109,60 @@ public class Slot extends Conflictable {
         } else {
             peopleWorking.add(person);
             person.incrementNumberScheduled();
+            person.addTimeWorking(this.time + " " + this.date);
             numberOfPeopleWorking++;
         }
     }
-    // Checking for the same person object.
+    //Checking for the same object is equivalent to checking for if the name is the same in lower case because of the equals and hashcode method in person.
     public boolean containsInWorking(Person person){
         boolean found = false;
         for (Person personItr : peopleWorking) {
-            if (personItr == person) {
+            if (personItr == person){
                 found = true;
             }
         }
         return found;
     }
-    public void removePersonFromPeopleAvailable(Person person) {
+    public boolean removePersonFromPeopleAvailable(Person person) {
         Boolean removed = peopleAvailable.remove(person);
         if (removed) {
+            person.removeTimeFree(this.time + " " + this.date);
             numberOfPeopleAvailable--;
         }
+        return removed;
     }
-    public void removePersonFromPeopleFilling(Person person) {
+    public boolean removePersonFromPeopleFilling(Person person) {
         Boolean removed = peopleWorking.remove(person);
         if (removed) {
             numberOfPeopleWorking--;
             person.decrementNumberScheduled();
+            person.removeTimeWorking(this.time + " " + this.date);
         }
+        return removed;
     }
 
     public Person removeAndGetFirstPersonAvailable() {
         Person person = peopleAvailable.remove(0);
         if (person != null){
             numberOfPeopleAvailable--;
+            person.removeTimeFree(this.time + " " + this.date);
         }
         return person;
     }
+
+    public Person personNoLongerAvailable(Person person){
+        Boolean removedFromAvail = this.removePersonFromPeopleAvailable(person);
+        if (removedFromAvail){
+            person.decrementNumberAvailable();
+        }
+        this.removePersonFromPeopleFilling(person);
+        return person;
+    }
+
+    /**
+     * Sorts the people available as determined by a Comparator.
+     * @param comparator
+     */
     public void sortPeopleAvailable(Comparator<Person> comparator) {
         Collections.sort(peopleAvailable, comparator);
     }
@@ -148,7 +170,6 @@ public class Slot extends Conflictable {
         return numberOfPeopleWorking == 0;
     }
 
-    // TODO: Make this work as a binary search algorithm on an inherently sorted list.
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {

@@ -2,13 +2,14 @@ import java.util.*;
 /* E specifies the type of objects held in the ArrayList. We will probably use Strings to represent times. But with this we could easily change it to be timeSlots
 or any new implementation
  */
+//TODO implement timesFree and timesWorking as HashSets so we can do updates quick.
 public class Person extends Conflictable{
     private int capacity;
     private int numberInitiallyAvailable = 1;
     private int numberScheduled;
     private String name;
     private final ArrayList<String> timesFree = new ArrayList();
-    private final ArrayList<String> timesWorking = new ArrayList(); // TODO make sure that this list gets filled properly on adding.
+    private final ArrayList<String> timesWorking = new ArrayList();
 
 
     public Person(){
@@ -18,13 +19,13 @@ public class Person extends Conflictable{
         numberInitiallyAvailable = 1;
     }
     public Person(String name){
-        this.name = name;
+        this.name = name.toLowerCase();
         capacity = 30;
         numberScheduled = 0;
         numberInitiallyAvailable = 1;
     }
     public Person(String name, int capacity){
-        this.name = name;
+        this.name = name.toLowerCase();
         capacity = capacity;
         numberScheduled = 0;
         numberInitiallyAvailable = 1;
@@ -36,11 +37,14 @@ public class Person extends Conflictable{
         }
         return arrayToReturn;
     }
-    public void addTimeFree(String time){
-            timesFree.add(time);
+    public void addTimeFree(String timeDate){
+            timesFree.add(timeDate);
         }
-    public void removeTimeFree(String time){
-        timesFree.remove(time); //must reimplement this method so that it is more efficient.
+    public void removeTimeFree(String timeDate){
+        timesFree.remove(timeDate);
+    }
+    public void addTimeWorking(String timeDate){
+        timesWorking.add(timeDate);
     }
     public boolean atCapacity(){
         return numberScheduled == capacity;
@@ -64,8 +68,7 @@ public class Person extends Conflictable{
         numberScheduled++;
     }
     public void setName(String newName){
-
-        this.name = newName;
+        this.name = newName.toLowerCase();
     }
     /* We can change this as we need to for more advanced features that is why it is a duplicate for now
       */
@@ -113,5 +116,25 @@ public class Person extends Conflictable{
             throw new IllegalStateException("Person cannot have a negative number of times available");
         }
         numberInitiallyAvailable--;
+    }
+    public void removeTimeWorking(String dateTime){
+        timesWorking.remove(dateTime);
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getName().toLowerCase().hashCode();
+    }
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+        if (!(obj instanceof Person)) {
+            return false;
+        } else {
+            Person person = (Person) obj;
+            return person.getName().equalsIgnoreCase(person.getName());
+        }
     }
 }

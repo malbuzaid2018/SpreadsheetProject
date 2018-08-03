@@ -129,10 +129,7 @@ public class TheTimeMap implements Schedule {
         return timeSlotMap.entrySet();
     }
 
-    // At first glance this method seems inefficient but for our algorithm it could really help us out. Certain time slots should be filled first. For example at 12:00 at WTC only two people might list themselves as available and the
-    // minimum required slots might be 2. We would want to fill all timeSlots to the minimum if possible. BUT then we would also want to fill above the minimum. So we would want our algorithm to
-    // continue to run. Using a priorityQueue when you push an item it goes to the right spot on the list(assuming a good comparator method) So once we serve an item we can actually push it back onto the queue. This is going to be useful once we fill all slots to minimum. We would fill
-    // the slot with one person and then move onto the next item in the Queue until we reach a point where we can't(max at all items or no more people available).
+
     public PriorityQueue<Slot> slotPriorityQueue(Comparator<Slot> slotComparator){
         PriorityQueue<Slot> slotPriorityQueue = new PriorityQueue<>(numberOfTimeSlots, slotComparator);
         slotPriorityQueue.addAll(timeSlotMap.values());
@@ -156,8 +153,6 @@ public class TheTimeMap implements Schedule {
         }
         if (mapToReadAndUpdate.containsKey(person.getName())) {
             person = mapToReadAndUpdate.get(person.getName());
-            person.incrementIntiallyAvailable();
-            person.addTimeFree(timeDate);
             if (this.containsTime(timeDate)) {
                 if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
                     return false;
@@ -181,8 +176,6 @@ public class TheTimeMap implements Schedule {
                 }
             }
             if ((person.getName() != "") && (person.getName() != null)) {
-                person.addTimeFree(timeDate);
-                person.incrementIntiallyAvailable();
                 mapToReadAndUpdate.put(person.getName(), person);
                 if (this.containsTime(timeDate)) {
                     if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
