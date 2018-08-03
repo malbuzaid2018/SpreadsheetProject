@@ -102,4 +102,16 @@ public class Person extends Conflictable{
         }
         return removed;
     }
+    public void decrementNumberScheduled(){
+        if (numberScheduled <= 0){
+            throw new IllegalStateException("Person cannot have a negative number of time's scheduled to work");
+        }
+        numberScheduled--;
+    }
+    public void decrementNumberAvailable(){
+        if (numberInitiallyAvailable <= 0) {
+            throw new IllegalStateException("Person cannot have a negative number of times available");
+        }
+        numberInitiallyAvailable--;
+    }
 }

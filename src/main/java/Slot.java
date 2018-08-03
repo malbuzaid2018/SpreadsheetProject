@@ -44,6 +44,7 @@ public class Slot extends Conflictable {
     public int getNumberOfPeopleWorking(){
             return numberOfPeopleWorking;
         }
+
         public int getMax(){
             return max;
         }
@@ -85,19 +86,39 @@ public class Slot extends Conflictable {
         return numberOfPeopleWorking;
     }
 
-    //TODO//  implement this with the proper compareTo or Comparator
+    // Maybe implement a sort method to sort people.
     public void addPersonToPeopleAvailable(Person person) {
+        if (containsInAvailable(person)){
+            System.out.println("Person is already in available!");
+            return;
+        }
         peopleAvailable.add(person);
+        person.incrementIntiallyAvailable();
         numberOfPeopleAvailable++;
     }
 
     public void addPersontoPeopleWorking(Person person) {
+        if (containsInWorking(person)){
+            System.out.println("Person is already working this shit!");
+            return;
+        }
         if (this.checkForConflicts(person) == true) {
             System.out.println("Warning there is a conflict! Please address this before adding!");
         } else {
             peopleWorking.add(person);
+            person.incrementNumberScheduled();
             numberOfPeopleWorking++;
         }
+    }
+    // Checking for the same person object.
+    public boolean containsInWorking(Person person){
+        boolean found = false;
+        for (Person personItr : peopleWorking) {
+            if (personItr == person) {
+                found = true;
+            }
+        }
+        return found;
     }
     public void removePersonFromPeopleAvailable(Person person) {
         Boolean removed = peopleAvailable.remove(person);
@@ -109,6 +130,7 @@ public class Slot extends Conflictable {
         Boolean removed = peopleWorking.remove(person);
         if (removed) {
             numberOfPeopleWorking--;
+            person.decrementNumberScheduled();
         }
     }
 
@@ -126,7 +148,7 @@ public class Slot extends Conflictable {
         return numberOfPeopleWorking == 0;
     }
 
-    // We are checking for the same exact object. So the == method is good enough.
+    // TODO: Make this work as a binary search algorithm on an inherently sorted list.
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {
