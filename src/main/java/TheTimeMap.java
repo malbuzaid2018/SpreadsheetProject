@@ -74,11 +74,12 @@ public class TheTimeMap implements Schedule {
         Slot slotToCheck = timeSlotMap.get(timeDate);
         if (slotToCheck == null) {
             System.out.println("The slot was not found");
+            return;
         }
         int minimum = slotToCheck.getMinimumRequired();
         int maximum = slotToCheck.getMax();
         //print min
-        System.out.println("The minimum number of people who can work at " + timeDate + " is " + minimum);
+        System.out.println("The minimum number of people who need to work at " + timeDate + " is " + minimum);
 
         System.out.println("The maximum number of people who can work  this time is " + maximum);
 
@@ -155,8 +156,7 @@ public class TheTimeMap implements Schedule {
         if (mapToReadAndUpdate.containsKey(person.getName())) {
             person = mapToReadAndUpdate.get(person.getName());
         }
-        Boolean success = eliminateDry(person, min, max, timeDate, time, date, mapToReadAndUpdate);
-        return success;
+        return eliminateDry(person, min, max, timeDate, time, date, mapToReadAndUpdate);
     }
     private boolean eliminateDry(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash personMapHash){
         Boolean nameEmpty = person.getName().equals("");

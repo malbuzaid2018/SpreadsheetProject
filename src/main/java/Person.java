@@ -30,11 +30,14 @@ public class Person extends Conflictable{
         numberScheduled = 0;
         numberInitiallyAvailable = 1;
     }
-    public ArrayList<String> getTimes(){
+    public ArrayList<String> getTimesFree(){
         ArrayList<String> arrayToReturn = new ArrayList<>(timesFree.size());
-        for (String str: timesFree){
-            arrayToReturn.add(str);
-        }
+        arrayToReturn.addAll(timesFree);
+        return arrayToReturn;
+    }
+    public ArrayList<String> getTimesWorking(){
+        ArrayList<String> arrayToReturn = new ArrayList<>(timesFree.size());
+        arrayToReturn.addAll(timesFree);
         return arrayToReturn;
     }
     public void addTimeFree(String timeDate){
@@ -80,7 +83,7 @@ public class Person extends Conflictable{
         ConflictMarker conflictMarker = new ConflictMarker(character, i);
         System.out.println("Attempting to add a ConflictMarker object " + conflictMarker.hashCode() + " to person " + this.getName());
         added = this.addConflictMarkerToInstance(conflictMarker);
-        if (added = true){
+        if (added){
             System.out.println("Marker was successfully added");
         }
         else {

@@ -17,7 +17,7 @@ public class Main {
         }
         for (Map.Entry<String, Person> entry : peopleHash.entrySet()){
             System.out.println("Person " + entry.getKey());
-            System.out.println("Time's person is available " + entry.getValue().getTimes());
+            System.out.println("Time's person is available " + entry.getValue().getTimesFree());
 
         }
         Person john = new Person("John");

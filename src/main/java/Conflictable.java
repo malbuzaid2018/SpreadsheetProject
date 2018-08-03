@@ -30,6 +30,11 @@ public abstract class Conflictable {
         }
         return isConflict;
     }
+    public void removeLinkedConflictsFromOtherConflictable(Conflictable conflictable){
+        for (ConflictMarker conflictMarker : this.setOfPotentialConflicts){
+            conflictable.removeConflictMarkerFromInstance(conflictMarker);
+        }
+    }
     public boolean removeConflictMarkerFromInstance(ConflictMarker conflictMarker) {
         return setOfPotentialConflicts.remove(conflictMarker);
     }

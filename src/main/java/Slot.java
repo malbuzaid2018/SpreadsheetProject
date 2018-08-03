@@ -7,7 +7,7 @@ public class Slot extends Conflictable {
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
     private int numberOfPeopleAvailable = 0;
     private int numberOfPeopleWorking = 0;
-    private int minimumRequired;
+    private int minimumRequired = 0;
     private int max; // We can use this with a priorityQueue so that we can continue to fill the slot to capacity.
     private int leftToMax = max - numberOfPeopleWorking;
     private String date;
@@ -56,9 +56,7 @@ public class Slot extends Conflictable {
     }
     public ArrayList<Person> getPeopleAvailable() {
         ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
-        for (int i = 0; i < peopleAvailable.size(); i++) {
-            people.add(peopleAvailable.get(i));
-        }
+        people.addAll(peopleAvailable);
         return people;
     }
 
@@ -104,7 +102,7 @@ public class Slot extends Conflictable {
             System.out.println("Person is already working this shit!");
             return;
         }
-        if (this.checkForConflicts(person) == true) {
+        if (this.checkForConflicts(person)) {
             System.out.println("Warning there is a conflict! Please address this before adding!");
         } else {
             peopleWorking.add(person);
@@ -136,6 +134,7 @@ public class Slot extends Conflictable {
             numberOfPeopleWorking--;
             person.decrementNumberScheduled();
             person.removeTimeWorking(this.time + " " + this.date);
+            this.removeLinkedConflictsFromOtherConflictable(person);
         }
         return removed;
     }
@@ -188,7 +187,7 @@ public class Slot extends Conflictable {
         ConflictMarker conflictMarkerToAdd = new ConflictMarker(character, i);
         System.out.println("Attempting to add a ConflictMarker object " + conflictMarkerToAdd.hashCode() + " to slot " + this.hashCode());
         added = super.addConflictMarkerToInstance(conflictMarkerToAdd);
-        if (added = true) {
+        if (added) {
             System.out.println("Successfully added marker to slot " + this.hashCode());
         } else {
             System.out.println("Marker already present in slot " + hashCode());
