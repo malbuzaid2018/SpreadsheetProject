@@ -146,7 +146,7 @@ public class TheTimeMap implements Schedule {
             }
         }
     }
-    // TODO Elimiante dry from this code
+    // TODO Elimiante dry from this code.
     public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;

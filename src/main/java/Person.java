@@ -121,20 +121,4 @@ public class Person extends Conflictable{
         timesWorking.remove(dateTime);
     }
 
-    @Override
-    public int hashCode(){
-        return this.getName().toLowerCase().hashCode();
-    }
-    @Override
-    public boolean equals(Object obj){
-        if (obj == this){
-            return true;
-        }
-        if (!(obj instanceof Person)) {
-            return false;
-        } else {
-            Person person = (Person) obj;
-            return person.getName().equalsIgnoreCase(person.getName());
-        }
-    }
 }

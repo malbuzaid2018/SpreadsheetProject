@@ -113,11 +113,10 @@ public class Slot extends Conflictable {
             numberOfPeopleWorking++;
         }
     }
-    //Checking for the same object is equivalent to checking for if the name is the same in lower case because of the equals and hashcode method in person.
     public boolean containsInWorking(Person person){
         boolean found = false;
         for (Person personItr : peopleWorking) {
-            if (personItr == person){
+            if (personItr.getName().equalsIgnoreCase(person.getName())){
                 found = true;
             }
         }
@@ -173,7 +172,7 @@ public class Slot extends Conflictable {
     public boolean containsInAvailable(Person person) {
         boolean found = false;
         for (Person personItr : peopleAvailable) {
-            if (personItr == person) {
+            if (personItr.getName().equalsIgnoreCase(person.getName())){
                 found = true;
             }
         }
