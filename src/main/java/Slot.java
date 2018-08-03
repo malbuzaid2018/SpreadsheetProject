@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Slot extends Conflictable {
+    // TODO refactor so that there is a person map here. It would be a static class so it could be accessed via any slot.
+    // That way when we add or remove people from times, the times are accurartely reflected in the person hashmap.
     private final ArrayList<Person> peopleAvailable = new ArrayList<>();
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
     private int numberOfPeopleAvailable = 0;
@@ -19,6 +21,9 @@ public class Slot extends Conflictable {
         time = "";
     }
     public Slot(int min, int max, String date, String time){
+        if (min < 0 || max < 0 ){
+            throw new IllegalArgumentException("Min and max both need to be at least zero");
+        }
         this.minimumRequired = min;
         this.max = max;
         this.date = date;
@@ -45,6 +50,9 @@ public class Slot extends Conflictable {
     public String getDate(){
        return date;
     }
+    public boolean atMax(){
+        return numberOfPeopleWorking >= max;
+    }
     public ArrayList<Person> getPeopleAvailable() {
         ArrayList<Person> people = new ArrayList<>(peopleAvailable.size());
         for (int i = 0; i < peopleAvailable.size(); i++) {
@@ -62,8 +70,8 @@ public class Slot extends Conflictable {
     }
 
     public ArrayList<String> getPeopleWorkingNames() {
-        ArrayList<String> people = new ArrayList<>(peopleAvailable.size());
-        for (Person person : peopleAvailable) {
+        ArrayList<String> people = new ArrayList<>(peopleWorking.size());
+        for (Person person : peopleWorking) {
             people.add(person.getName());
         }
         return people;
@@ -92,17 +100,24 @@ public class Slot extends Conflictable {
         }
     }
     public void removePersonFromPeopleAvailable(Person person) {
-        peopleAvailable.remove(person);
-        numberOfPeopleAvailable--;
+        Boolean removed = peopleAvailable.remove(person);
+        if (removed) {
+            numberOfPeopleAvailable--;
+        }
     }
     public void removePersonFromPeopleFilling(Person person) {
-        peopleWorking.remove(person);
-        numberOfPeopleWorking--;
+        Boolean removed = peopleWorking.remove(person);
+        if (removed) {
+            numberOfPeopleWorking--;
+        }
     }
-    // Luke's method to get the head of the sorted list.
+
     public Person removeAndGetFirstPersonAvailable() {
-        numberOfPeopleAvailable--;
-        return peopleAvailable.remove(0);
+        Person person = peopleAvailable.remove(0);
+        if (person != null){
+            numberOfPeopleAvailable--;
+        }
+        return person;
     }
     public void sortPeopleAvailable(Comparator<Person> comparator) {
         Collections.sort(peopleAvailable, comparator);
@@ -125,9 +140,6 @@ public class Slot extends Conflictable {
     public boolean checkForConflicts(Conflictable otherConflictable) {
         return super.checkForPotentialConflicts(otherConflictable);
     }
-    /* The conflict marker should not have a character value of ~ while the int value is also 0./*
-
-     */
 
     public boolean addConflictMarker(Character character, int i) {
         boolean added = false;

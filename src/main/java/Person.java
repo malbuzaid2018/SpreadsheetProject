@@ -7,8 +7,8 @@ public class Person extends Conflictable{
     private int numberInitiallyAvailable = 1;
     private int numberScheduled;
     private String name;
-    private final ArrayList<String> timesFree = new ArrayList();  // This is where we could use a skip list. We would be adding and removing AND possibly searching this.
-    private final ArrayList<String> timesWorking = new ArrayList(); // Skip list?
+    private final ArrayList<String> timesFree = new ArrayList();
+    private final ArrayList<String> timesWorking = new ArrayList(); // TODO make sure that this list gets filled properly on adding.
 
 
     public Person(){

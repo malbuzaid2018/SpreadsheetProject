@@ -37,8 +37,9 @@ public class TheTimeMap implements Schedule {
     public void displaySchedule() {
 
         for (Map.Entry<String, Slot> entry : entrySet()){
-            System.out.println("Time " + entry.getKey());
+            System.out.println("Time " + entry.getValue().getTime() + " " + entry.getValue().getDate());
             System.out.println("People who are available to fill the time slot: " + entry.getValue().getPeopleAvailableNamems());
+            System.out.println("People who are working this time slot: " + entry.getValue().getPeopleWorkingNames());
         }
     }
 
@@ -49,12 +50,8 @@ public class TheTimeMap implements Schedule {
      */
     @Override
     public void displayPeopleAvailable(String timeDate) {
-        for (Map.Entry<String, Slot> entry : entrySet()){
-            if (entry.getKey().equals(timeDate)){
-                System.out.println("Time " + entry.getKey());
-                System.out.println("People who are available to fill the time slot: " + entry.getValue().getPeopleAvailableNamems());
-            }
-        }
+        Slot entry = timeSlotMap.get(timeDate);
+        System.out.println("People who are available to fill the time slot: " + entry.getPeopleAvailableNamems());
     }
 
     /**
@@ -64,13 +61,8 @@ public class TheTimeMap implements Schedule {
      */
     @Override
     public void displayPeopleWorking(String timeDate) {
-        for (Map.Entry<String, Slot> entry : entrySet()){
-
-            if (entry.getKey().equals(timeDate)){
-                System.out.println("Time " + entry.getKey());
-                System.out.println("People who are available to fill the time slot: " + entry.getValue().getNumberOfPeopleWorking());
-            }
-        }
+        Slot entry = timeSlotMap.get(timeDate);
+        System.out.println("People who are available to fill the time slot: " + entry.getPeopleWorkingNames());
     }
 
     /**
@@ -79,48 +71,23 @@ public class TheTimeMap implements Schedule {
      */
     @Override
     public void getMinAndMax(String timeDate) {
-
-        int minNumberPeople = Integer.MAX_VALUE;
-        int maxNumberPeople = Integer.MIN_VALUE;
-
-        //find min, max
-        for (Map.Entry<String, Slot> entry : entrySet()){
-            if (entry.getKey().equals(timeDate)) {
-                if (entry.getValue().getNumberOfPeople() > maxNumberPeople) {
-                    maxNumberPeople = entry.getValue().getNumberOfPeople();
-                }
-                if (entry.getValue().getNumberOfPeople() < minNumberPeople) {
-                    minNumberPeople = entry.getValue().getNumberOfPeople();
-                }
-            }
+        Slot slotToCheck = timeSlotMap.get(timeDate);
+        if (slotToCheck == null) {
+            System.out.println("The slot was not found");
         }
-
+        int minimum = slotToCheck.getMinimumRequired();
+        int maximum = slotToCheck.getMax();
         //print min
-        System.out.println("Times min number of people who need to/can work a time");
-        for (Map.Entry<String, Slot> entry : entrySet()){
-            if (entry.getKey().equals(timeDate) && entry.getValue().getNumberOfPeople() == minNumberPeople){
-                System.out.println(entry.getKey());
-            }
-        }
+        System.out.println("The minimum number of people who can work at " + timeDate + " is " + minimum);
 
-        //print max
-        System.out.println("Times max number of people who need to/can work a time");
-        for (Map.Entry<String, Slot> entry : entrySet()){
-            if (entry.getKey().equals(timeDate) && entry.getValue().getNumberOfPeople() == maxNumberPeople){
-                System.out.println(entry.getKey());
-            }
-        }
+        System.out.println("The maximum number of people who can work  this time is " + maximum);
+
     }
 
     public Slot getTimeSlot(String key) {
         return timeSlotMap.get(key);
     }
 
-    /*
-        public Slot getOrDefault(String key, Slot defaultVal) {
-            return timeSlotMap.getOrDefault(key, defaultVal); //** fix this/
-        }
-    */
     public Slot removeTimeSlot(String key) {
         numberOfTimeSlots--;
         return timeSlotMap.remove(key);
@@ -149,7 +116,7 @@ public class TheTimeMap implements Schedule {
         numberOfTimeSlots++;
         return true;
     }
-    public Set<String> setOfTimeStrings() {
+    public Set<String> setOfTimeStrings() { 
         return timeSlotMap.keySet();
     }
     public Collection<Slot> collectionOfSlots() {
@@ -182,6 +149,7 @@ public class TheTimeMap implements Schedule {
             }
         }
     }
+    // TODO Elimiante dry from this code
     public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
         if (timeDate == "") {
             return false;
@@ -189,7 +157,7 @@ public class TheTimeMap implements Schedule {
         if (mapToReadAndUpdate.containsKey(person.getName())) {
             person = mapToReadAndUpdate.get(person.getName());
             person.incrementIntiallyAvailable();
-            person.addTimeFree((String) timeDate);
+            person.addTimeFree(timeDate);
             if (this.containsTime(timeDate)) {
                 if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
                     return false;
