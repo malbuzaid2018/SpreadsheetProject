@@ -2,14 +2,14 @@ import java.util.*;
 /* E specifies the type of objects held in the ArrayList. We will probably use Strings to represent times. But with this we could easily change it to be timeSlots
 or any new implementation
  */
-//TODO implement timesFree and timesWorking as HashSets so we can do updates quick.
+
 public class Person extends Conflictable{
     private int capacity;
     private int numberInitiallyAvailable = 1;
     private int numberScheduled;
     private String name;
-    private final ArrayList<String> timesFree = new ArrayList();
-    private final ArrayList<String> timesWorking = new ArrayList();
+    private final HashSet<String> timesFree = new HashSet<>();
+    private final HashSet<String> timesWorking = new HashSet<>();
 
 
     public Person(){

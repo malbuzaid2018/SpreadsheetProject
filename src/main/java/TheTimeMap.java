@@ -51,6 +51,10 @@ public class TheTimeMap implements Schedule {
     @Override
     public void displayPeopleAvailable(String timeDate) {
         Slot entry = timeSlotMap.get(timeDate);
+        if (entry == null){
+            System.out.println("Time not found!");
+            return;
+        }
         System.out.println("People who are available to fill the time slot: " + entry.getPeopleAvailableNamems());
     }
 
@@ -62,6 +66,10 @@ public class TheTimeMap implements Schedule {
     @Override
     public void displayPeopleWorking(String timeDate) {
         Slot entry = timeSlotMap.get(timeDate);
+        if (entry == null){
+            System.out.println("Time not found!");
+            return;
+        }
         System.out.println("People who are available to fill the time slot: " + entry.getPeopleWorkingNames());
     }
 
@@ -150,7 +158,10 @@ public class TheTimeMap implements Schedule {
     }
 
     public boolean tryToAddPersonToAvailableWithMap(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash mapToReadAndUpdate) {
-        if (timeDate == "") {
+        if (timeDate.equals("")) {
+            return false;
+        }
+        if (person.getName().equals("")){
             return false;
         }
         if (mapToReadAndUpdate.containsKey(person.getName())) {
@@ -159,15 +170,15 @@ public class TheTimeMap implements Schedule {
         return eliminateDry(person, min, max, timeDate, time, date, mapToReadAndUpdate);
     }
     private boolean eliminateDry(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash personMapHash){
-        Boolean nameEmpty = person.getName().equals("");
         Boolean timeNotAlreadyOnSchedule = this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
-        if ((!nameEmpty) && (person.getName() != null)){
+        if ((person.getName() != null)){
             personMapHash.put(person.getName(), person);
             if (this.getTimeSlot(timeDate).containsInAvailable(person)) {
                 return false;
             }
             this.getTimeSlot(timeDate).addPersonToPeopleAvailable(person);
+            return true;
         }
-        return true;
+        return false;
     }
 }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Slot extends Conflictable {
-    // TODO refactor so that there is a person map here. It would be a static class so it could be accessed via any slot.
+    // TODO refactor so that there is a person map here. It would be a static field so it could be accessed via any slot.
     // That way when we add or remove people from times, the times are accurartely reflected in the person hashmap.
     private final ArrayList<Person> peopleAvailable = new ArrayList<>();
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
@@ -87,6 +87,10 @@ public class Slot extends Conflictable {
     // We could do this so that the list of people is sorted and we run a binary search to see if the person is already in the list. We could then insert the item alphabetically. However,
     // we are using an ArrayList and adding the item would result in nearly the same time efficiency(since we would now be adding to the middle of the list rather than the end). Adding N items would make this ultimately a O(n^2) growth rate. Plus, there would be extra overhead in calling a method either way.
     public void addPersonToPeopleAvailable(Person person) {
+        if (this.checkForConflicts(person)){
+            System.out.println("There is a conflict that prevents this person from being available at this time");
+            return;
+        }
         if (containsInAvailable(person)) {
             System.out.println("Person is already in available!");
             return;
@@ -97,18 +101,24 @@ public class Slot extends Conflictable {
         numberOfPeopleAvailable++;
     }
 
-    public void addPersontoPeopleWorking(Person person) {
+    public boolean addPersontoPeopleWorking(Person person) {
         if (containsInWorking(person)){
             System.out.println("Person is already working this shit!");
-            return;
+            return false;
         }
         if (this.checkForConflicts(person)) {
             System.out.println("Warning there is a conflict! Please address this before adding!");
-        } else {
+            return false;
+        }
+        if (person.atCapacity()){
+            return false;
+        } else{
             peopleWorking.add(person);
             person.incrementNumberScheduled();
             person.addTimeWorking(this.time + " " + this.date);
+            this.addAllConflictMarkersToObj(person);
             numberOfPeopleWorking++;
+            return true;
         }
     }
     public boolean containsInWorking(Person person){

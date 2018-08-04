@@ -31,12 +31,16 @@ public abstract class Conflictable {
         return isConflict;
     }
     public void removeLinkedConflictsFromOtherConflictable(Conflictable conflictable){
-        for (ConflictMarker conflictMarker : this.setOfPotentialConflicts){
-            conflictable.removeConflictMarkerFromInstance(conflictMarker);
+        {
+            conflictable.setOfPotentialConflicts.removeAll(this.setOfPotentialConflicts);
         }
     }
     public boolean removeConflictMarkerFromInstance(ConflictMarker conflictMarker) {
         return setOfPotentialConflicts.remove(conflictMarker);
+    }
+
+    public void addAllConflictMarkersToObj(Conflictable conflictable){
+        conflictable.setOfPotentialConflicts.addAll(this.setOfPotentialConflicts);
     }
     public boolean removeConflictMarkerFromAllConflictMarkers(ConflictMarker conflictMarker){
         return allConflictMarkers.remove(conflictMarker);
