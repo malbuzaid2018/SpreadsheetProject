@@ -7,10 +7,17 @@ public class ComparePerson implements Comparator<Person> {
         }
         if (personOne.getName().equalsIgnoreCase(personTwo.getName())){
             return 0;
-        }   
-        int firstTest= ((personOne.getNumberScheduled()) * (personOne.getNumberInitiallyAvailable() + 1) ) - ((personTwo.getNumberScheduled()) * (personTwo.getNumberInitiallyAvailable() + 1));
+        }
+        double personOneCalc = (500.0 * personOne.getNumberScheduled()) * personOne.getNumberInitiallyAvailable() + 1.0;
+        double personTwoCalc = (500.0 * personTwo.getNumberScheduled()) * personTwo.getNumberInitiallyAvailable() + 1.0;
+        double firstTest = personOneCalc - personTwoCalc;
         if ((firstTest != 0)) {
-            return (int) Math.floor(firstTest);
+            if (personOneCalc < personTwoCalc){
+                return -1;
+            }
+            else{
+                return 1;
+            }
         }
         int secondTest = personOne.getNumberInitiallyAvailable() - personTwo.getNumberInitiallyAvailable();
         if (secondTest != 0) {

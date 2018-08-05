@@ -1,12 +1,6 @@
 import java.util.Comparator;
 public class CompareSlot implements Comparator<Slot> {
     public int compare(Slot slotOne, Slot slotTwo) {
-        if ((slotOne.isFilledToMin()) && (!slotTwo.isFilledToMin())) {
-            return 1; // slotOne is less important than slot two so it will be farther in a sorted list.
-        }
-        if ((!slotOne.isFilledToMin() && slotTwo.isFilledToMin())) {
-            return -1; // slotOne is more important to fill then slotTwo.
-        }
         if (slotOne.getMinimumRequired() == 0 && slotTwo.getMinimumRequired() > 0) {
             return 1; // Slot one is not important at all compared to this slot.
         }
@@ -20,10 +14,16 @@ public class CompareSlot implements Comparator<Slot> {
                 return 1;
             }
         }
+        if ((slotOne.isFilledToMin()) && (!slotTwo.isFilledToMin())) {
+            return 1; // slotOne is less important than slot two so it will be farther in a sorted list.
+        }
+        if ((!slotOne.isFilledToMin() && slotTwo.isFilledToMin())) {
+            return -1; // slotOne is more important to fill then slotTwo.
+        }
         // If both slots are not filled ot the minimum required we will use this to compare the slots
         if (!slotOne.isFilledToMin() && !slotTwo.isFilledToMin()){
-            int slotOneRatio = slotOne.getNumberCurrentlyAvailable() / ( slotOne.getMinimumRequired() - slotOne.getNumberOfPeopleWorking());
-            int slotTwoRatio = slotTwo.getNumberCurrentlyAvailable() / ( slotTwo.getMinimumRequired() - slotTwo.getNumberOfPeopleWorking());
+            double slotOneRatio = slotOne.getNumberCurrentlyAvailable() / (slotOne.getMinimumRequired() - slotOne.getNumberOfPeopleWorking() + 0.0 );
+            double slotTwoRatio = slotTwo.getNumberCurrentlyAvailable() / ( slotTwo.getMinimumRequired() - slotTwo.getNumberOfPeopleWorking()+ 0.0 );
             if (slotOneRatio == slotTwoRatio){
                 if (Math.random() < 0.5){
                     return 1;
@@ -32,7 +32,12 @@ public class CompareSlot implements Comparator<Slot> {
                     return -1;
                 }
             }
-            return slotOneRatio - slotTwoRatio;
+            if (slotOneRatio > slotTwoRatio){
+                return 1;
+            }
+            else {
+                return -1;
+            }
         }
 
         else {
@@ -50,8 +55,8 @@ public class CompareSlot implements Comparator<Slot> {
             if (slotTwo.atMax() && !slotOne.atMax()){
                 return -1;
             }
-            int slotOneRatio = slotOne.getNumberCurrentlyAvailable() / (slotOne.getLeftToMax());
-            int slotTwoRatio = slotTwo.getNumberCurrentlyAvailable() / (slotTwo.getLeftToMax());
+            double slotOneRatio = slotOne.getNumberCurrentlyAvailable() / (slotOne.getLeftToMax() + 0.0);
+            double slotTwoRatio = slotTwo.getNumberCurrentlyAvailable() / (slotTwo.getLeftToMax() + 0.0);
             if (slotOneRatio == slotTwoRatio){
                 if (Math.random() < 0.5){
                     return 1;
@@ -60,7 +65,12 @@ public class CompareSlot implements Comparator<Slot> {
                     return -1;
                 }
             }
-            return slotOneRatio - slotTwoRatio;
+            if (slotOneRatio > slotTwoRatio){
+                return 1;
+            }
+            else {
+                return -1;
+            }
         }
     }
 }

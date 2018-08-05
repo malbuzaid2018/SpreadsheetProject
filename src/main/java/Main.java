@@ -18,8 +18,14 @@ public class Main {
          System.out.println("Enter the ID of the spreadsheet to write to:");
         theDataInterface.setWriteSheetID(input.nextLine());
         */
-
-        for (Map.Entry<String, Slot> entry : schedule.entrySet()){
+        System.out.println("Here we go!");
+        PriorityQueue<Slot> slotPriorityQueue = schedule.slotPriorityQueue(new CompareSlot());
+        Slot first = slotPriorityQueue.poll();
+        System.out.println(first.getTime() + " " + first.getDate());
+        first = slotPriorityQueue.poll();
+        System.out.println(first.getTime() + " " + first.getDate());
+        System.out.println("End test");
+        for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue().getPeopleAvailableNamems() + entry.getValue().getPeopleAvailableNamems().size());
         }
         for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
@@ -32,9 +38,9 @@ public class Main {
             }
         }
         for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
-            for (String str: entry.getValue().getPeopleAvailableNamems()){
-                System.out.println(str);
-            }
+            System.out.println(entry.getKey() + " " + entry.getValue().getPeopleWorkingNames());
         }
+
+        System.out.println("---------------------------------");
     }
 }
