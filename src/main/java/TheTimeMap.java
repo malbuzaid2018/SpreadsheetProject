@@ -170,7 +170,7 @@ public class TheTimeMap implements Schedule {
         return eliminateDry(person, min, max, timeDate, time, date, mapToReadAndUpdate);
     }
     private boolean eliminateDry(Person person, int min, int max, String timeDate, String time, String date, PersonMapHash personMapHash){
-        Boolean timeNotAlreadyOnSchedule = this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
+       this.putNewTimeSlotOnSchedule(timeDate, new Slot(min, max, date, time));
         if ((person.getName() != null)){
             personMapHash.put(person.getName(), person);
             if (this.getTimeSlot(timeDate).containsInAvailable(person)) {

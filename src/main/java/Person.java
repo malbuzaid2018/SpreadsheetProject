@@ -4,31 +4,22 @@ or any new implementation
  */
 
 public class Person extends Conflictable{
-    private int capacity;
-    private int numberInitiallyAvailable = 1;
-    private int numberScheduled;
+    private static int capacity = 11;
+    private int numberInitiallyAvailable = 0;
+    private int numberScheduled = 0;
     private String name;
     private final HashSet<String> timesFree = new HashSet<>();
     private final HashSet<String> timesWorking = new HashSet<>();
+    private double load = (numberScheduled + 0.0)/capacity;
 
 
     public Person(){
         this.name = "";
-        capacity = 30;
-        numberScheduled = 0;
-        numberInitiallyAvailable = 1;
+        numberInitiallyAvailable = 0;
     }
     public Person(String name){
         this.name = name.toLowerCase();
-        capacity = 30;
-        numberScheduled = 0;
-        numberInitiallyAvailable = 1;
-    }
-    public Person(String name, int capacity){
-        this.name = name.toLowerCase();
-        capacity = capacity;
-        numberScheduled = 0;
-        numberInitiallyAvailable = 1;
+        numberInitiallyAvailable = 0;
     }
     public ArrayList<String> getTimesFree(){
         ArrayList<String> arrayToReturn = new ArrayList<>(timesFree.size());
@@ -42,12 +33,14 @@ public class Person extends Conflictable{
     }
     public void addTimeFree(String timeDate){
             timesFree.add(timeDate);
+            numberInitiallyAvailable++;
         }
     public void removeTimeFree(String timeDate){
         timesFree.remove(timeDate);
     }
     public void addTimeWorking(String timeDate){
         timesWorking.add(timeDate);
+        numberScheduled++;
     }
     public boolean atCapacity(){
         return numberScheduled == capacity;
@@ -55,29 +48,17 @@ public class Person extends Conflictable{
     public int getNumberScheduled() {
         return numberScheduled;
     }
-    public int timeSlotsLeft(){
-        return capacity - numberScheduled;
-    }
+
     public int getNumberInitiallyAvailable(){
         return numberInitiallyAvailable;
     }
     public String getName(){
         return name;
     }
-    public void incrementIntiallyAvailable(){
-        numberInitiallyAvailable++;
-    }
-    public void incrementNumberScheduled(){
-        numberScheduled++;
-    }
     public void setName(String newName){
         this.name = newName.toLowerCase();
     }
-    /* We can change this as we need to for more advanced features that is why it is a duplicate for now
-      */
-    public boolean isEligibleToAddToATime(){
-        return this.atCapacity();
-    }
+
     public boolean addConflictMarker(Character character, int i){
         boolean added = false;
         ConflictMarker conflictMarker = new ConflictMarker(character, i);
@@ -96,6 +77,10 @@ public class Person extends Conflictable{
         System.out.println("Unsupported operation for person. If you intended to remove this type of conflict from the master set of conflicts please use another class that supports this operation like slot.");
         return false;
     }
+    @Override
+    public void removeLinkedConflictsFromOtherConflictable(Conflictable conflictable){
+        System.out.println("removeLinkedConflictsFromOtherConflictable is not supported by class Person");
+    }
     public boolean removeConflictMarker(Character character, int i) {
         ConflictMarker conflictMarkerToRemove = new ConflictMarker(character, i);
         System.out.println("Attempting to remove a conflict marker " + conflictMarkerToRemove.hashCode() + "from person " + this.getName());
@@ -108,12 +93,6 @@ public class Person extends Conflictable{
         }
         return removed;
     }
-    public void decrementNumberScheduled(){
-        if (numberScheduled <= 0){
-            throw new IllegalStateException("Person cannot have a negative number of time's scheduled to work");
-        }
-        numberScheduled--;
-    }
     public void decrementNumberAvailable(){
         if (numberInitiallyAvailable <= 0) {
             throw new IllegalStateException("Person cannot have a negative number of times available");
@@ -122,8 +101,20 @@ public class Person extends Conflictable{
     }
     public void removeTimeWorking(String dateTime){
         timesWorking.remove(dateTime);
+        numberScheduled--;
     }
-
+    public static void setCapacity(int i){
+        if (i < 1){
+            throw new IllegalArgumentException("Person class capacity cannot be less than one.");
+        }
+        Person.capacity = i;
+    }
+    public static int getCapacity(){
+        return capacity;
+    }
+    public double getLoad(){
+        return load;
+    }
     @Override
     public boolean equals(Object obj){
         if (obj == this){

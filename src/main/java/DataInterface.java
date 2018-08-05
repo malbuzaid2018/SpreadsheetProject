@@ -93,6 +93,7 @@ public class DataInterface {
                             name = "";
                         } else {
                             name = (String) response.getValueRanges().get(0).getValues().get(i).get(j);
+                            name = name.trim();
                         }
                         newPerson.setName(name);
                     }

@@ -100,7 +100,6 @@ public class Slot extends Conflictable {
         }
         peopleAvailable.add(person);
         person.addTimeFree(this.time + " " + this.date);
-        person.incrementIntiallyAvailable();
         numberOfPeopleAvailable++;
         numberCurrentlyAvailable++;
     }
@@ -118,7 +117,6 @@ public class Slot extends Conflictable {
             return false;
         } else{
             peopleWorking.add(person);
-            person.incrementNumberScheduled();
             person.addTimeWorking(this.time + " " + this.date);
             this.addAllConflictMarkersToObj(person);
             numberOfPeopleWorking++;
@@ -147,7 +145,6 @@ public class Slot extends Conflictable {
         Boolean removed = peopleWorking.remove(person);
         if (removed) {
             numberOfPeopleWorking--;
-            person.decrementNumberScheduled();
             person.removeTimeWorking(this.time + " " + this.date);
             this.removeLinkedConflictsFromOtherConflictable(person);
         }
