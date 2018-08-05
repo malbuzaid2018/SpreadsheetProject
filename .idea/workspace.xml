@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="943c7582-b6ba-445a-bc35-045a86b447d3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ComparePerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ComparePerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Conflictable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Conflictable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DataInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DataInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CompareSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CompareSlot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Slot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TheTimeMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TheTimeMap.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -45,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            <state relative-caret-position="414">
+              <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,65 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Person.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Person.java">
+      <file leaf-file-name="CompareSlot.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CompareSlot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComparePerson.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ComparePerson.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TheTimeMap.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/TheTimeMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="163" column="39" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#688#689#0" expanded="true" />
-                <element signature="e#743#744#0" expanded="true" />
-                <element signature="e#876#877#0" expanded="true" />
-                <element signature="e#927#928#0" expanded="true" />
-                <element signature="e#3013#3014#0" expanded="true" />
-                <element signature="e#3056#3057#0" expanded="true" />
-                <element signature="e#3893#3894#0" expanded="true" />
-                <element signature="e#3937#3938#0" expanded="true" />
-                <element signature="e#3987#3988#0" expanded="true" />
-                <element signature="e#4030#4031#0" expanded="true" />
-                <element signature="e#4243#4244#0" expanded="true" />
-                <element signature="e#4288#4289#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Rule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Conflictable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Conflictable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="42" column="82" selection-start-line="42" selection-start-column="82" selection-end-line="42" selection-end-column="82" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="288">
+              <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
             </state>
           </provider>
         </entry>
@@ -123,19 +63,11 @@
       <file leaf-file-name="Slot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Slot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="121" column="9" lean-forward="true" selection-start-line="121" selection-start-column="9" selection-end-line="121" selection-end-column="9" />
+            <state relative-caret-position="1938">
+              <caret line="140" column="38" lean-forward="true" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
               <folding>
-                <element signature="e#1263#1264#0" expanded="true" />
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="e#1344#1345#0" expanded="true" />
-                <element signature="e#1394#1395#0" expanded="true" />
-                <element signature="e#6280#6281#0" expanded="true" />
-                <element signature="e#6341#6342#0" expanded="true" />
-                <element signature="e#6372#6373#0" expanded="true" />
-                <element signature="e#6421#6422#0" expanded="true" />
-                <element signature="e#8630#8631#0" expanded="true" />
-                <element signature="e#8657#8658#0" expanded="true" />
+                <element signature="e#1711#1712#0" expanded="true" />
+                <element signature="e#1758#1759#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,6 +104,7 @@
       <find>==</find>
       <find>containsIn</find>
       <find>getMin</find>
+      <find>isFilled</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -601,7 +534,6 @@
         <option value="$PROJECT_DIR$/src/main/java/Conflict.java" />
         <option value="$PROJECT_DIR$/src/main/java/ConflictManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/ConflictMarker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/CompareSlot.java" />
         <option value="$PROJECT_DIR$/src/main/java/Schedule.java" />
         <option value="$PROJECT_DIR$/src/main/java/PersonMapHash.java" />
         <option value="$PROJECT_DIR$/src/main/java/Rule.java" />
@@ -611,8 +543,9 @@
         <option value="$PROJECT_DIR$/src/main/java/DataInterface.java" />
         <option value="$PROJECT_DIR$/src/main/java/TheTimeMap.java" />
         <option value="$PROJECT_DIR$/src/main/java/Conflictable.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Slot.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Slot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CompareSlot.java" />
       </list>
     </option>
   </component>
@@ -622,7 +555,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-15" />
     <option name="width" value="1950" />
     <option name="height" value="2075" />
@@ -762,7 +695,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
+    <frame x="-6" y="0" width="780" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="5" />
@@ -773,12 +706,12 @@
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50040483" side_tool="true" weight="0.35714287" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.054996647" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.49959514" visible="true" weight="0.32941177" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49959514" weight="0.32941177" />
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32941177" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
-      <window_info content_ui="combo" id="Project" order="5" sideWeight="0.49780703" visible="true" weight="0.22266935" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.49780703" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32941177" />
       <window_info anchor="right" id="Gradle" order="1" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
@@ -799,10 +732,10 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Gradle" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.49959514" visible="true" weight="0.32941177" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49959514" weight="0.32941177" />
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="5" sideWeight="0.49780703" visible="true" weight="0.22266935" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.49780703" visible="true" weight="0.22266935" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.19558823" />
@@ -813,7 +746,7 @@
       <window_info anchor="bottom" id="Find" order="5" weight="0.32941177" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="right" id="Palette&#9;" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.0" />
+      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.32941177" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50040483" side_tool="true" weight="0.35714287" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="2" />
@@ -822,7 +755,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Messages" order="6" weight="0.32058823" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.054996647" />
-      <window_info id="Favorites" order="3" sideWeight="0.502193" side_tool="true" visible="true" weight="0.22266935" />
+      <window_info id="Favorites" order="3" sideWeight="0.502193" side_tool="true" weight="0.22266935" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1077,13 +1010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CompareSlot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GoogleAuthorizeUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1133,40 +1059,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Conflictable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="42" column="82" selection-start-line="42" selection-start-column="82" selection-end-line="42" selection-end-column="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Rule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ComparePerson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TheTimeMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
+        <state relative-caret-position="1550">
           <caret line="163" column="39" selection-start-line="163" selection-start-column="39" selection-end-line="163" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1186,32 +1081,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Slot.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Rule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="121" column="9" lean-forward="true" selection-start-line="121" selection-start-column="9" selection-end-line="121" selection-end-column="9" />
+        <state>
+          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Conflictable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="42" column="82" selection-start-line="42" selection-start-column="82" selection-end-line="42" selection-end-column="82" />
           <folding>
-            <element signature="e#1263#1264#0" expanded="true" />
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="e#1344#1345#0" expanded="true" />
-            <element signature="e#1394#1395#0" expanded="true" />
-            <element signature="e#6280#6281#0" expanded="true" />
-            <element signature="e#6341#6342#0" expanded="true" />
-            <element signature="e#6372#6373#0" expanded="true" />
-            <element signature="e#6421#6422#0" expanded="true" />
-            <element signature="e#8630#8631#0" expanded="true" />
-            <element signature="e#8657#8658#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+        <state relative-caret-position="414">
+          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ComparePerson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" lean-forward="true" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Slot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="140" column="38" lean-forward="true" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
+          <folding>
+            <element signature="e#1711#1712#0" expanded="true" />
+            <element signature="e#1758#1759#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CompareSlot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="53" column="94" selection-start-line="53" selection-start-column="94" selection-end-line="53" selection-end-column="94" />
         </state>
       </provider>
     </entry>

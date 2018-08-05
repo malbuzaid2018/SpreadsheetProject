@@ -7,6 +7,7 @@ public class Slot extends Conflictable {
     private final ArrayList<Person> peopleWorking = new ArrayList<>();
     private int numberOfPeopleAvailable = 0;
     private int numberOfPeopleWorking = 0;
+    private int numberCurrentlyAvailable = 0;
     private int minimumRequired = 0;
     private int max; // We can use this with a priorityQueue so that we can continue to fill the slot to capacity.
     private int leftToMax = max - numberOfPeopleWorking;
@@ -44,7 +45,9 @@ public class Slot extends Conflictable {
     public int getNumberOfPeopleWorking(){
         return numberOfPeopleWorking;
     }
-
+    public int getNumberCurrentlyAvailable(){
+        return numberCurrentlyAvailable;
+    }
         public int getMax(){
             return max;
         }
@@ -99,6 +102,7 @@ public class Slot extends Conflictable {
         person.addTimeFree(this.time + " " + this.date);
         person.incrementIntiallyAvailable();
         numberOfPeopleAvailable++;
+        numberCurrentlyAvailable++;
     }
 
     public boolean addPersontoPeopleWorking(Person person) {
@@ -135,6 +139,7 @@ public class Slot extends Conflictable {
         if (removed) {
             person.removeTimeFree(this.time + " " + this.date);
             numberOfPeopleAvailable--;
+            numberCurrentlyAvailable--;
         }
         return removed;
     }
@@ -153,6 +158,7 @@ public class Slot extends Conflictable {
         Person person = peopleAvailable.remove(0);
         if (person != null){
             numberOfPeopleAvailable--;
+            numberCurrentlyAvailable--;
             person.removeTimeFree(this.time + " " + this.date);
         }
         return person;
