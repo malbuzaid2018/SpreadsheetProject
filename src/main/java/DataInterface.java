@@ -22,6 +22,7 @@ public class DataInterface {
     private int defaultMax = 6;
     private String readSheetID = "1UHWD0gPBFV-ab7qa3FQ0pDbSYTxsrFpmXZGp71xFQwQ";
     private String writeSheetID = "1hRLbsjpvW20V1b_QytLXNQ7TqQshh7eHdbP5ZD5NrPw";
+    final String inputValueOption = "RAW";
     public void getDataFromSpreadsheet(PersonMapHash peopleMap, TheTimeMap timeMap) {
         peopleMap.clear();
         timeMap.clear();
@@ -105,7 +106,7 @@ public class DataInterface {
         }
     }
 
-    public UpdateValuesResponse updateValues(String spreadsheetId, String range, String valueInputOption, List<List<Object>> _values) throws IOException {
+    public UpdateValuesResponse updateValues(String range, List<List<Object>> _values) throws IOException {
         // [START sheets_update_values]
         List<List<Object>> values;
         // [START_EXCLUDE silent]
@@ -114,8 +115,8 @@ public class DataInterface {
         ValueRange body = new ValueRange()
                 .setValues(values);
         UpdateValuesResponse result =
-                sheet.spreadsheets().values().update(spreadsheetId, range, body)
-                        .setValueInputOption(valueInputOption)
+                sheet.spreadsheets().values().update(writeSheetID, range, body)
+                        .setValueInputOption(inputValueOption)
                         .execute();
         System.out.printf("%d cells updated.", result.getUpdatedCells());
         // [END sheets_update_values]
@@ -138,13 +139,26 @@ public class DataInterface {
     public String getReadSheetID() {
         return readSheetID;
     }
-    public void setReadSheetID(String readSheetID) { //TODO add functionality for "unchanged read ID"
-        this.readSheetID = readSheetID;
+    public void setReadSheetID(String readSheetID) {
+        String unchanged = readSheetID;
+        if (readSheetID.length() == 0 || readSheetID.equals("")){
+            this.readSheetID = unchanged;
+        }
+        else{
+            this.readSheetID = readSheetID;
+        }
     }
     public String getWriteSheetID() {
         return writeSheetID;
     }
-    public void setWriteSheetID(String writeSheetID) { //TODO add functionality for "unchanged write ID"
-        this.writeSheetID = writeSheetID;
+    public void setWriteSheetID(String writeSheetID) {
+        String unchanged = writeSheetID;
+        if (writeSheetID.length() == 0 || writeSheetID.equals("")){
+            this.writeSheetID = unchanged;
+        }
+        else{
+            this.writeSheetID = writeSheetID;
+        }
+
     }
 }
