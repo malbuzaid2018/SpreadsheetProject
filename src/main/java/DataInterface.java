@@ -140,7 +140,7 @@ public class DataInterface {
         return readSheetID;
     }
     public void setReadSheetID(String readSheetID) {
-        String unchanged = readSheetID;
+        String unchanged = this.readSheetID;
         if (readSheetID.length() == 0 || readSheetID.equals("")){
             this.readSheetID = unchanged;
         }
@@ -152,7 +152,7 @@ public class DataInterface {
         return writeSheetID;
     }
     public void setWriteSheetID(String writeSheetID) {
-        String unchanged = writeSheetID;
+        String unchanged = this.writeSheetID;
         if (writeSheetID.length() == 0 || writeSheetID.equals("")){
             this.writeSheetID = unchanged;
         }
