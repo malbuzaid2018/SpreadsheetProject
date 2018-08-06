@@ -18,22 +18,41 @@ public class Main {
          System.out.println("Enter the ID of the spreadsheet to write to:");
         theDataInterface.setWriteSheetID(input.nextLine());
         */
-        System.out.println("Here we go!");
-        PriorityQueue<Slot> slotPriorityQueue = schedule.slotPriorityQueue(new CompareSlot());
-        Slot first = slotPriorityQueue.poll();
-        // This slot seems more important to fill because there is less people available to fill it for example. This becomes important if we ever need to place a cap on the number of times a person can volunteer. We don't need to do this but it's an option.
-        System.out.println(first.getTime() + " " + first.getDate());
-        first = slotPriorityQueue.poll();
-        System.out.println(first.getTime() + " " + first.getDate());
-        System.out.println("End test");
         for (Map.Entry<String, Person> entry : peopleHash.entrySet()){
             System.out.println(entry.getKey() + " " + entry.getValue().getNumberInitiallyAvailable());
         }
         for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue().getPeopleAvailableNamems() + entry.getValue().getPeopleAvailableNamems().size());
         }
+        int integer = 0;
+        String date = "";
+        for (Map.Entry<String, Slot> entry : schedule.entrySet()){
+            String oldDate = date;
+            date = entry.getValue().getDate();
+            Character character = 'A';
+            if (oldDate.equalsIgnoreCase(date)){
+               if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
+                   entry.getValue().addConflictMarker(character, integer);
+               }
+            }
+            else {
+                if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")) {
+                    integer++;
+                    System.out.println("Integer" + integer);
+                    entry.getValue().addConflictMarker(character, integer);
+                }
+            }
+        }
         for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
             ArrayList<Person> guides = entry.getValue().getPeopleAvailable();
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue().getPeopleAvailableNamems());
+            for (Person person : guides){
+                System.out.println(person.getName());
+                entry.getValue().displayConflictMarkers();
+                System.out.println("--------");
+                person.displayConflictMarkers();
+            }
             while (entry.getValue().getNumberOfPeopleWorking() < entry.getValue().getMax() && !(guides.isEmpty())) {
                 Collections.sort(guides, new ComparePerson());
                 Person current = guides.get(0);

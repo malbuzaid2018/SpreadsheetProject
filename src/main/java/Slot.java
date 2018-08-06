@@ -161,15 +161,6 @@ public class Slot extends Conflictable {
         return person;
     }
 
-    public Person personNoLongerAvailable(Person person){
-        Boolean removedFromAvail = this.removePersonFromPeopleAvailable(person);
-        if (removedFromAvail){
-            person.decrementNumberAvailable();
-        }
-        this.removePersonFromPeopleFilling(person);
-        return person;
-    }
-
     /**
      * Sorts the people available as determined by a Comparator.
      * @param comparator

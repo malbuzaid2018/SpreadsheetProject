@@ -16,19 +16,18 @@ public abstract class Conflictable {
     }
 
     public boolean checkForPotentialConflicts(Conflictable conflictable) {
+        Boolean answer = false;
         if (this.setOfPotentialConflicts.isEmpty() || conflictable.setOfPotentialConflicts.isEmpty()) {
-            this.isConflict = false;
-            conflictable.isConflict = false;
+            return false;
         } else {
             Iterator<ConflictMarker> itr = this.setOfPotentialConflicts.iterator();
             while (itr.hasNext()) {
                 if (conflictable.setOfPotentialConflicts.contains(itr.next())) {
-                    this.isConflict = true;
-                    conflictable.isConflict = true;
+                    answer = true;
                 }
             }
         }
-        return isConflict;
+        return answer;
     }
     public void removeLinkedConflictsFromOtherConflictable(Conflictable conflictable){
         {
@@ -44,6 +43,11 @@ public abstract class Conflictable {
     }
     public boolean removeConflictMarkerFromAllConflictMarkers(ConflictMarker conflictMarker){
         return allConflictMarkers.remove(conflictMarker);
+    }
+    public void displayConflictMarkers(){
+        for (ConflictMarker conflictMarker: setOfPotentialConflicts){
+            System.out.println(conflictMarker + conflictMarker.thingToHash);
+        }
     }
 
 }

@@ -4,7 +4,7 @@ or any new implementation
  */
 
 public class Person extends Conflictable{
-    private static int capacity = 11;
+    private static int capacity = 110;
     private int numberInitiallyAvailable = 0;
     private int numberScheduled = 0;
     private String name;
