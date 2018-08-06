@@ -43,6 +43,25 @@ public class Main {
                 }
             }
         }
+        int integerTwo = 0;
+        String dateTwo = "";
+        for (Map.Entry<String, Slot> entry : schedule.entrySet()){
+            String oldDate = dateTwo;
+            dateTwo = entry.getValue().getDate();
+            Character character = 'B';
+            if (oldDate.equalsIgnoreCase(dateTwo)){
+                if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
+                    entry.getValue().addConflictMarker(character, integerTwo);
+                }
+            }
+            else {
+                if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")) {
+                    integerTwo++;
+                    System.out.println("Integer" + integerTwo);
+                    entry.getValue().addConflictMarker(character, integerTwo);
+                }
+            }
+        }
         for (Map.Entry<String, Slot> entry : schedule.entrySet()) {
             ArrayList<Person> guides = entry.getValue().getPeopleAvailable();
             System.out.println(entry.getKey());
