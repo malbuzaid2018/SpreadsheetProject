@@ -3,7 +3,7 @@ import java.util.*;
 public class Rule {
     private int minToSet;
     private int maxToSet;
-    private ArrayList<String> dayTimesToRemove = new ArrayList<>(); //TODO make this implementable in DataInterface to remove certain days of the week.
+    private ArrayList<String> dayTimesToRemove = new ArrayList<>();
     private ArrayList<String> dayTimeMinMaxSetList = new ArrayList<>();
     private ArrayList<String> justTimeMinMaxSetList = new ArrayList<>();
 

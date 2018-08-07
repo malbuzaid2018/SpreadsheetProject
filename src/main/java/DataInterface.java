@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 import java.util.Arrays;
+import com.google.api.services.sheets.v4.model.*;
+import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.Collections;
 
 /* This class will interface with Google SpreadSheets and read and write to spreadsheets.
    It might also be used to interface with a database in the future.
@@ -16,12 +20,15 @@ public class DataInterface {
     private int numberOfDates; //WARNING: SPREADSHEET must meet formatting to get an accurate number.
     private int defaultMin = 5;
     private int defaultMax = 6;
+    private String readSheetID = "1UHWD0gPBFV-ab7qa3FQ0pDbSYTxsrFpmXZGp71xFQwQ";
+    private String writeSheetID = "1hRLbsjpvW20V1b_QytLXNQ7TqQshh7eHdbP5ZD5NrPw";
+    final String inputValueOption = "RAW";
     public void getDataFromSpreadsheet(PersonMapHash peopleMap, TheTimeMap timeMap) {
         peopleMap.clear();
         timeMap.clear();
         try {
             sheet = SheetsServiceUtil.getSheetsService();
-            String SPREADSHEET_ID = "1BAvWAR78ghD7UAqESnxe8V5L6xtwazJ89hkhz3waQyM";
+            String SPREADSHEET_ID = readSheetID;
             List<String> ranges = Arrays.asList("Sheet1");
             Sheets.Spreadsheets.Values.BatchGet request = sheet.spreadsheets().values().batchGet(SPREADSHEET_ID);
             request.setRanges(ranges);
@@ -32,10 +39,11 @@ public class DataInterface {
             int numberOfCols = response.getValueRanges().get(0).getValues().size();
             ArrayList<String> times = new ArrayList<>();
             ArrayList<String> dates = new ArrayList<>();
+            int maxRows = 0;
             for (int i = 0; i < response.getValueRanges().get(0).getValues().get(0).size(); i++) {
                 times.add((String) response.getValueRanges().get(0).getValues().get(0).get(i));  //fills a times array up with values
             }
-            ArrayList<String> daysToRemove = new ArrayList<>(); // TODO  ?figure out how to implement this with a rule?
+            ArrayList<String> daysToRemove = new ArrayList<>();
             daysToRemove.add("Sun");
             for (int i = 0; i < numberOfCols; i++) {
                 if (response.getValueRanges().get(0).getValues().get(i).size() == 0){
@@ -86,6 +94,7 @@ public class DataInterface {
                             name = "";
                         } else {
                             name = (String) response.getValueRanges().get(0).getValues().get(i).get(j);
+                            name = name.trim();
                         }
                         newPerson.setName(name);
                     }
@@ -96,6 +105,25 @@ public class DataInterface {
             ex.printStackTrace();
         }
     }
+
+    public UpdateValuesResponse updateValues(String range, List<List<Object>> _values) throws IOException {
+        // [START sheets_update_values]
+        List<List<Object>> values;
+        // [START_EXCLUDE silent]
+        values = _values;
+        // [END_EXCLUDE]
+        ValueRange body = new ValueRange()
+                .setValues(values);
+        UpdateValuesResponse result =
+                sheet.spreadsheets().values().update(writeSheetID, range, body)
+                        .setValueInputOption(inputValueOption)
+                        .execute();
+        System.out.printf("%d cells updated.", result.getUpdatedCells());
+        // [END sheets_update_values]
+        return result;
+    }
+
+
     public int getDefaultMin(){
         return defaultMin;
     }
@@ -107,5 +135,30 @@ public class DataInterface {
     }
     public void setDefaultMax(int i){
         defaultMax = i;
+    }
+    public String getReadSheetID() {
+        return readSheetID;
+    }
+    public void setReadSheetID(String readSheetID) {
+        String unchanged = this.readSheetID;
+        if (readSheetID.length() == 0 || readSheetID.equals("")){
+            this.readSheetID = unchanged;
+        }
+        else{
+            this.readSheetID = readSheetID;
+        }
+    }
+    public String getWriteSheetID() {
+        return writeSheetID;
+    }
+    public void setWriteSheetID(String writeSheetID) {
+        String unchanged = this.writeSheetID;
+        if (writeSheetID.length() == 0 || writeSheetID.equals("")){
+            this.writeSheetID = unchanged;
+        }
+        else{
+            this.writeSheetID = writeSheetID;
+        }
+
     }
 }
