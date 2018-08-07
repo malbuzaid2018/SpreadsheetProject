@@ -56,6 +56,7 @@ public class TheTimeMap implements Schedule {
             return;
         }
         System.out.println("People who are available to fill the time slot: " + entry.getPeopleAvailableNamems());
+
     }
 
     /**
@@ -65,12 +66,14 @@ public class TheTimeMap implements Schedule {
      */
     @Override
     public void displayPeopleWorking(String timeDate) {
+
         Slot entry = timeSlotMap.get(timeDate);
         if (entry == null){
             System.out.println("Time not found!");
             return;
         }
         System.out.println("People who are available to fill the time slot: " + entry.getPeopleWorkingNames());
+
     }
 
     /**
@@ -90,7 +93,6 @@ public class TheTimeMap implements Schedule {
         System.out.println("The minimum number of people who need to work at " + timeDate + " is " + minimum);
 
         System.out.println("The maximum number of people who can work  this time is " + maximum);
-
     }
 
     public Slot getTimeSlot(String key) {
@@ -181,4 +183,6 @@ public class TheTimeMap implements Schedule {
         }
         return false;
     }
+
+
 }

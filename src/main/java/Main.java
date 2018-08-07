@@ -86,6 +86,23 @@ public class Main {
             System.out.println(entry.getKey() + " " + entry.getValue().getNumberScheduled());
         }
 
+
+        System.out.println("------------------------------------------------");
+
+        //test methods in TheTimeMap
+
+        System.out.println("\nTest displaySchedule:");
+        schedule.displaySchedule();
+
+        System.out.println("\nTest displayPeopleWorking:");
+        schedule.displayPeopleWorking("9:30 Mon 7/2");
+
+        System.out.println("\nTest displayPeopleAvailable:");
+        schedule.displayPeopleAvailable("9:30 Mon 7/2");
+
+        System.out.println("\nTest displayMinAndMax:");
+        schedule.displayMinAndMax("9:30 Mon 7/2");
         System.out.println("---------------------------------");
+      
     }
 }
