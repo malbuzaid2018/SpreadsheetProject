@@ -72,7 +72,7 @@ public class DataInterface {
                     continue;
                 }
                 for (int j = 0; j < numberOfRows; j++) {
-                    Boolean timeChanged = !(times.get(j).equals(time)) && !(times.get(j) == "");
+                    Boolean timeChanged = !(times.get(j).equals(time)) && !(times.get(j).equals(""));
                     if (i == 0) {
                         continue;
                     }
@@ -81,7 +81,7 @@ public class DataInterface {
                     }
                     String name = "";
                     String timeDate = "";
-                    Person newPerson = new Person(name);
+                    Person newPerson = new Person();
                     if (timeChanged) {
                         time = times.get(j);
                     }
@@ -98,7 +98,11 @@ public class DataInterface {
                         }
                         newPerson.setName(name);
                     }
-                    timeMap.tryToAddPersonToAvailableWithMap(newPerson, defaultMin, defaultMax, timeDate, time, dates.get(i), peopleMap);
+                    try {
+                        timeMap.tryToAddPersonToAvailableWithMap(newPerson, defaultMin, defaultMax, timeDate, time, dates.get(i), peopleMap);
+                    }catch (RuntimeException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }   catch (Exception ex) {
@@ -140,7 +144,7 @@ public class DataInterface {
     }
     public void setReadSheetID(String readSheetID) {
         String unchanged = this.readSheetID;
-        if (readSheetID.length() == 0 || readSheetID.equals("")){
+        if (readSheetID == null || readSheetID.equals("")){
             this.readSheetID = unchanged;
         }
         else{
@@ -152,7 +156,7 @@ public class DataInterface {
     }
     public void setWriteSheetID(String writeSheetID) {
         String unchanged = this.writeSheetID;
-        if (writeSheetID.length() == 0 || writeSheetID.equals("")){
+        if (writeSheetID == null || writeSheetID.equals("")){
             this.writeSheetID = unchanged;
         }
         else{
