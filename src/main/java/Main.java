@@ -31,9 +31,9 @@ public class Main {
             date = entry.getValue().getDate();
             Character character = 'A';
             if (oldDate.equalsIgnoreCase(date)){
-               if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
-                   entry.getValue().addConflictMarker(character, integer);
-               }
+                if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
+                    entry.getValue().addConflictMarker(character, integer);
+                }
             }
             else {
                 if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")) {
@@ -100,9 +100,8 @@ public class Main {
         System.out.println("\nTest displayPeopleAvailable:");
         schedule.displayPeopleAvailable("9:30 Mon 7/2");
 
-        System.out.println("\nTest displayMinAndMax:");
-        schedule.displayMinAndMax("9:30 Mon 7/2");
+
         System.out.println("---------------------------------");
-      
+
     }
 }
