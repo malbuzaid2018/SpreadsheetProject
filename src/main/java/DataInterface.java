@@ -123,7 +123,6 @@ public class DataInterface {
         return result;
     }
 
-
     public int getDefaultMin(){
         return defaultMin;
     }

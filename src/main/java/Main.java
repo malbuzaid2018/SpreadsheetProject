@@ -100,5 +100,8 @@ public class Main {
         System.out.println("\nTest displayPeopleAvailable:");
         schedule.displayPeopleAvailable("9:30 Mon 7/2");
 
+
+        System.out.println("---------------------------------");
+
     }
 }
