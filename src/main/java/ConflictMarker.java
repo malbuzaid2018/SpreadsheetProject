@@ -4,7 +4,11 @@ public class ConflictMarker {
     private Character character ; // specifies that a TIME is possibly conflicting with ANOTHER time
     public String thingToHash = null;
 
-    public ConflictMarker() {
+    /**
+     * private constructor
+     * not allowed to use
+     */
+    private ConflictMarker() {
         System.out.println("Warning! This is Conflict Marker does not contain any meaningful data. Please use the second constructor to initialize it properly");
     }
 
@@ -34,5 +38,14 @@ public class ConflictMarker {
     @Override
     public int hashCode() {
         return thingToHash.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ConflictMarker{" +
+                "integerValue=" + integerValue +
+                ", character=" + character +
+                ", thingToHash='" + thingToHash + '\'' +
+                '}';
     }
 }
