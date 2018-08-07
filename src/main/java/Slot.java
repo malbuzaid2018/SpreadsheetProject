@@ -14,7 +14,10 @@ public class Slot extends Conflictable {
     private String date;
     private String time;
 
-    public Slot()
+    /**
+     * private not allowed, the default must be provided in the client code
+     */
+    private Slot()
     {
         max = 6;
         minimumRequired = 5;
@@ -30,7 +33,13 @@ public class Slot extends Conflictable {
         this.date = date;
         this.time = time;
     }
-    public Slot(String date, String time){
+
+    /**
+     * private not allowed, the default must be provided in the client code
+     * @param date
+     * @param time
+     */
+    private Slot(String date, String time){
         this(5, 6, date, time);
     }
     public boolean peopleLeftToFillSlot(){
@@ -106,7 +115,7 @@ public class Slot extends Conflictable {
 
     public boolean addPersontoPeopleWorking(Person person) {
         if (containsInWorking(person)){
-            System.out.println("Person is already working this shit!");
+            System.out.println("Person is already working this slot!");
             return false;
         }
         if (this.checkForConflicts(person)) {
@@ -187,7 +196,7 @@ public class Slot extends Conflictable {
     }
 
     public boolean addConflictMarker(Character character, int i) {
-        boolean added = false;
+        boolean added;
         ConflictMarker conflictMarkerToAdd = new ConflictMarker(character, i);
         System.out.println("Attempting to add a ConflictMarker object " + conflictMarkerToAdd.hashCode() + " to slot " + this.hashCode());
         added = super.addConflictMarkerToInstance(conflictMarkerToAdd);
