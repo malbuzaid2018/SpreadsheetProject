@@ -31,9 +31,9 @@ public class Main {
             date = entry.getValue().getDate();
             Character character = 'A';
             if (oldDate.equalsIgnoreCase(date)){
-               if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
-                   entry.getValue().addConflictMarker(character, integer);
-               }
+                if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")){
+                    entry.getValue().addConflictMarker(character, integer);
+                }
             }
             else {
                 if (entry.getKey().contains("9:45") || entry.getKey().contains("10:45")) {
@@ -86,6 +86,19 @@ public class Main {
             System.out.println(entry.getKey() + " " + entry.getValue().getNumberScheduled());
         }
 
-        System.out.println("---------------------------------");
+
+        System.out.println("------------------------------------------------");
+
+        //test methods in TheTimeMap
+
+        System.out.println("\nTest displaySchedule:");
+        schedule.displaySchedule();
+
+        System.out.println("\nTest displayPeopleWorking:");
+        schedule.displayPeopleWorking("9:30 Mon 7/2");
+
+        System.out.println("\nTest displayPeopleAvailable:");
+        schedule.displayPeopleAvailable("9:30 Mon 7/2");
+
     }
 }
